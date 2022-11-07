@@ -1,6 +1,6 @@
 import os
 import argparse
-
+from helper import *
 MemSize = 1000 # memory size, in reality, the memory size should be 2^32, but for this lab, for the space resaon, we keep it as this large number, but the memory is still 32-bit addressable.
 
 class InsMem(object):
@@ -9,12 +9,15 @@ class InsMem(object):
         
         with open(ioDir + "\\imem.txt") as im:
             self.IMem = [data.replace("\n", "") for data in im.readlines()]
-            print('Imem: {}'.format(self.IMem))
+            # print('Imem: {}'.format(self.IMem))
 
     def readInstr(self, ReadAddress):
         #read instruction memory
         #return 32 bit hex val
-        return int(self.IMem[ReadAddress])
+        instr = ''
+        for i in range(4): 
+            instr += self.IMem[ReadAddress + i]
+        return instr
           
 class DataMem(object):
     def __init__(self, name, ioDir):
@@ -22,16 +25,22 @@ class DataMem(object):
         self.ioDir = ioDir
         with open(ioDir + "\\dmem.txt") as dm:
             self.DMem = [data.replace("\n", "") for data in dm.readlines()]
-            print('Dmem: {}'.format(self.DMem))
+            # print('Dmem: {}'.format(self.DMem))
 
     def readDataMem(self, ReadAddress):
         #read data memory
         #return 32 bit hex val
-        return int(self.DMem[ReadAddress])
+        data = ''
+        for i in range(4): 
+            data += self.DMem[ReadAddress + i]
+        return data
         
     def writeDataMem(self, Address, WriteData):
         # write data into byte addressable memory
-        pass
+        data = int_to_32str(WriteData)
+        parsedData = [data[:8], data[8:16], data[16:24], data[24:]]
+        for i in range(4): 
+            self.DMem[Address + i] = parsedData[i]
                      
     def outputDataMem(self):
         resPath = self.ioDir + "\\" + self.id + "_DMEMResult.txt"
@@ -44,12 +53,14 @@ class RegisterFile(object):
         self.Registers = [0x0 for i in range(32)]
     
     def readRF(self, Reg_addr):
-        # Fill in
-        pass
+        # Read register files
+        return self.Registers[Reg_addr]
     
     def writeRF(self, Reg_addr, Wrt_reg_data):
-        # Fill in
-        pass
+        # Write register files
+        if isinstance(Wrt_reg_data, str): 
+            Wrt_reg_data = int(Wrt_reg_data)
+        self.Registers[Reg_addr] = Wrt_reg_data
          
     def outputRF(self, cycle):
         op = ["-"*70+"\n", "State of RF after executing cycle:" + str(cycle) + "\n"]
