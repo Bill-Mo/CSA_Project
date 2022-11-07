@@ -9,11 +9,12 @@ class InsMem(object):
         
         with open(ioDir + "\\imem.txt") as im:
             self.IMem = [data.replace("\n", "") for data in im.readlines()]
+            print('Imem: {}'.format(self.IMem))
 
     def readInstr(self, ReadAddress):
         #read instruction memory
         #return 32 bit hex val
-        pass
+        return int(self.IMem[ReadAddress])
           
 class DataMem(object):
     def __init__(self, name, ioDir):
@@ -21,11 +22,12 @@ class DataMem(object):
         self.ioDir = ioDir
         with open(ioDir + "\\dmem.txt") as dm:
             self.DMem = [data.replace("\n", "") for data in dm.readlines()]
+            print('Dmem: {}'.format(self.DMem))
 
-    def readInstr(self, ReadAddress):
+    def readDataMem(self, ReadAddress):
         #read data memory
         #return 32 bit hex val
-        pass
+        return int(self.DMem[ReadAddress])
         
     def writeDataMem(self, Address, WriteData):
         # write data into byte addressable memory
