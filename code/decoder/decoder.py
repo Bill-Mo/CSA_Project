@@ -1,8 +1,10 @@
 class Decoder(object):
     def __init__(self, instr) -> None:
+        assert(len(instr) == 32)
+
         self.instr = instr
         self.funct7 = self.instr[:7]
-        self.funct3 = self.instr[17:19]
+        self.funct3 = self.instr[17:20]
         self.opcode = self.instr[25:]
 
     def decode(self): 
@@ -13,28 +15,28 @@ class Decoder(object):
         rd = self.instr[20:25]
 
         if type == 'R': 
-            ins = self.R_instr_decode(self.funct3, self.opcode)
-            return (type, rs2, rs1, rd)
+            ins = self.R_instr_decode()
+            return (type, ins, rs2, rs1, rd)
         
         elif type == 'I': 
             imm = self.instr[:12]
             ins = self.I_instr_decode()
-            return (type, imm, rs1, rd, ins)
+            return (type, ins, imm, rs1, rd)
         
         elif type == 'S': 
-            imm = self.instr[:6] + self.instr[20:25]
+            imm = self.instr[:7] + self.instr[20:25]
             ins = self.S_instr_decode()
-            return (type, imm, rs2, rs1, ins)
+            return (type, ins, imm, rs2, rs1)
 
         elif type == 'B': 
             imm = self.instr[0] + self.instr[-8] + self.instr[1:7] + self.instr[20:24] + '0'
             ins = self.B_instr_decode()
-            return (type, imm, rs2, rs1, ins)
+            return (type, ins, imm, rs2, rs1)
 
         elif type == 'J':
             imm =  self.instr[:20]
             ins = self.J_instr_decode()
-            return (type, imm, rd, ins)
+            return (type, ins, imm, rd)
         
         else: 
             return (type, )
@@ -55,6 +57,7 @@ class Decoder(object):
         elif opcode == '1111111': 
             return 'H'
         else: 
+            print(opcode)
             raise Exception('Wrong instruction type')
 
     def R_instr_decode(self): 

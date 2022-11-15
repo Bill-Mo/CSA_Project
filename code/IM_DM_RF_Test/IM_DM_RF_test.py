@@ -1,5 +1,5 @@
-import sys
-sys.path.append('..')
+import sys 
+sys.path.append("..") 
 from NYU_RV32I_6913 import InsMem, DataMem, RegisterFile
 import os
 import argparse
@@ -83,3 +83,4 @@ ioDir = os.path.abspath(args.iodir)
 test_IM(ioDir)
 test_DM(ioDir)
 test_RF(ioDir)
+print('Test pass!')
