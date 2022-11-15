@@ -98,13 +98,18 @@ class SingleStageCore(Core):
 
     def step(self):
         # Your implementation
+
+        cycle += 1
+
         # 1. Fetch instruction from memory.
+        PC = self.state.IF['PC']
+        instr = self.ext_imem.readInstr(PC)
+
         # 2. Read registers and decode the instruction.
+        
         # 3. Execute the operation or calculate an address.
         # 4. Access an operand in data memory (if necessary).
         # 5. Write the result into a register (if necessary).
-
-        self.halted = True
         if self.state.IF["nop"]:
             self.halted = True
             
