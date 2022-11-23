@@ -1,6 +1,7 @@
 import os
 import argparse
 from helper import *
+from decoder.decoder import Decoder
 MemSize = 1000 # memory size, in reality, the memory size should be 2^32, but for this lab, for the space resaon, we keep it as this large number, but the memory is still 32-bit addressable.
 
 class InsMem(object):
@@ -106,7 +107,23 @@ class SingleStageCore(Core):
         instr = self.ext_imem.readInstr(PC)
 
         # 2. Read registers and decode the instruction.
-        
+        decoder = Decoder(instr)
+        parsed_instr = decoder.decode()
+        type = parsed_instr[0]
+
+        if type == 'R': 
+            type, ins, rs2, rs1, rd = parsed_instr
+        elif type == 'I': 
+            type, ins, imm, rs1, rd = parsed_instr
+        elif type == 'S': 
+            type, ins, imm, rs2, rs1 = parsed_instr
+        elif type == 'B': 
+            type, ins, imm, rs2, rs1 = parsed_instr
+        elif type == 'J': 
+            type, ins, imm, rd = parsed_instr
+        else: 
+            type = parsed_instr[0]
+            
         # 3. Execute the operation or calculate an address.
         # 4. Access an operand in data memory (if necessary).
         # 5. Write the result into a register (if necessary).
