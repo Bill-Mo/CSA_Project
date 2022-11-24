@@ -124,7 +124,19 @@ class SingleStageCore(Core):
 
         # 3. Execute the operation or calculate an address.
         # 4. Access an operand in data memory (if necessary).
+        lw_value = 0
+        ALU_output = 0
+        if type == 'S': 
+            self.do_store(rs2, ALU_output)
+        elif ins == 'LW': 
+            lw_value = self.do_load(ALU_output)
+        
+        wb_value = self.WB_MUX(ins, ALU_output, lw_value)
+
         # 5. Write the result into a register (if necessary).
+        if ins == 'LW': 
+            self.do_write_back(rd, wb_value)
+
         if self.state.IF["nop"]:
             self.halted = True
             
@@ -143,6 +155,20 @@ class SingleStageCore(Core):
         else: perm = "a"
         with open(self.opFilePath, perm) as wf:
             wf.writelines(printstate)
+    
+    def do_store(self, rs2, ALU_output): 
+        self.ext_dmem.writeDataMem(ALU_output, rs2)
+    
+    def do_load(self, ALU_output): 
+        return self.ext_dmem.readDataMem(ALU_output)
+
+    def WB_MUX(self, ins, ALU_output, lw_value): 
+        if ins == 'LW': 
+            return lw_value
+        return ALU_output
+
+    def do_write_back(self, rd, wb_value): 
+        self.myRF.writeRF(rd, wb_value)
 
 class FiveStageCore(Core):
     def __init__(self, ioDir, imem, dmem):
