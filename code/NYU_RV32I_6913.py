@@ -92,6 +92,11 @@ class Core(object):
         self.ext_imem = imem
         self.ext_dmem = dmem
 
+    def assign_value(self, ioDir, imem, dmem):
+        self.ioDir = ioDir
+        self.ext_imem = imem
+        self.ext_dmem = dmem
+
 class SingleStageCore(Core):
     def __init__(self, ioDir, imem, dmem):
         super(SingleStageCore, self).__init__(ioDir + "\\SS_", imem, dmem)
@@ -121,8 +126,10 @@ class SingleStageCore(Core):
             type, ins, imm, rd = parsed_instr
         else: 
             type = parsed_instr[0]
-
+            
         # 3. Execute the operation or calculate an address.
+        
+
         # 4. Access an operand in data memory (if necessary).
         # 5. Write the result into a register (if necessary).
         if self.state.IF["nop"]:
