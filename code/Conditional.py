@@ -1,6 +1,6 @@
 class Conditional(object):
     def __init__(self, type, ins, rs2, rs1, rd) -> None:
-        return control(type, ins, rs2, rs1, rd)
+        return self.control(type, ins, rs2, rs1, rd)
 
     # Addition
     def ADD(rs2, rs1):

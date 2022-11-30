@@ -8,41 +8,40 @@ class ContorlUnit:
         self.ALUSrc = 0
         self.RegWrite = 0
 
-    def control(reset, opcode, Branch, MemRead, MemtoReg, ALUOp, MemWrite, ALUSrc, RegWrite):
-        result = 0
+    def control(self, opcode):
         if opcode == 'R':
-            ALUSrc = False
-            MemtoReg = False
-            RegWrite = True
-            MemRead = False
-            MemWrite = False
-            Branch = False
-            ALUOp = 2
+            self.ALUSrc = False
+            self.MemtoReg = False
+            self.RegWrite = True
+            self.MemRead = False
+            self.MemWrite = False
+            self.Branch = False
+            self.ALUOp = 2
             
 
         elif opcode == 'I':
-            ALUSrc = True
-            MemtoReg = True
-            RegWrite = True
-            MemRead = True
-            MemWrite = False
-            Branch = False
-            ALUOp = 0
+            self.ALUSrc = True
+            self.MemtoReg = True
+            self.RegWrite = True
+            self.MemRead = True
+            self.MemWrite = False
+            self.Branch = False
+            self.ALUOp = 0
 
         elif opcode == 'S':
-            ALUSrc = True
-            MemtoReg = False
-            RegWrite = False
-            MemRead = False
-            MemWrite = True
-            Branch = False
-            ALUOp = 0
+            self.ALUSrc = True
+            self.MemtoReg = False
+            self.RegWrite = False
+            self.MemRead = False
+            self.MemWrite = True
+            self.Branch = False
+            self.ALUOp = 0
 
         elif opcode == 'J':
-            ALUSrc = False
-            MemtoReg = False
-            RegWrite = False
-            MemRead = False
-            MemWrite = False
-            Branch = True
-            ALUOp = 7
+            self.ALUSrc = False
+            self.MemtoReg = False
+            self.RegWrite = False
+            self.MemRead = False
+            self.MemWrite = False
+            self.Branch = True
+            self.ALUOp = 7
