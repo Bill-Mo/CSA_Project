@@ -1,5 +1,5 @@
-class ContorlUnit:
-    def __init__(self):
+class ContorlUnit(object):
+    def __init__(self, opcode) -> None:
         self.Branch = 0
         self.MemRead = 0
         self.MemtoReg = 0
@@ -7,6 +7,8 @@ class ContorlUnit:
         self.MemWrite = 0
         self.ALUSrc = 0
         self.RegWrite = 0
+        self.control(opcode)
+        
 
     def control(self, opcode):
         if opcode == 'R':

@@ -2,6 +2,9 @@ import os
 import argparse
 from helper import *
 from decoder.decoder import Decoder
+import ControlUnit
+import Conditional
+
 MemSize = 1000 # memory size, in reality, the memory size should be 2^32, but for this lab, for the space resaon, we keep it as this large number, but the memory is still 32-bit addressable.
 
 class InsMem(object):
@@ -128,7 +131,8 @@ class SingleStageCore(Core):
             type = parsed_instr[0]
             
         # 3. Execute the operation or calculate an address.
-        
+        result = Conditional(type, ins, rs2, rs1, rd)
+        ControlUnit(type)
 
         # 4. Access an operand in data memory (if necessary).
         # 5. Write the result into a register (if necessary).
