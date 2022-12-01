@@ -131,18 +131,17 @@ class SingleStageCore(Core):
             type = parsed_instr[0]
             
         # 3. Execute the operation or calculate an address.
-        result = Conditional(type, ins, rs2, rs1, rd)
-        ControlUnit(type)
+        ALU_output = Conditional(type, ins, rs2, rs1, rd)
+        control_unit = ControlUnit(type)
 
         # 4. Access an operand in data memory (if necessary).
         lw_value = 0
-        ALU_output = 0
-        if type == 'S': 
+        if control_unit.MemWrite: 
             self.do_store(rs2, ALU_output)
-        elif ins == 'LW': 
+        elif control_unit.MemRead: 
             lw_value = self.do_load(ALU_output)
         
-        wb_value = self.WB_MUX(ins, ALU_output, lw_value)
+        wb_value = self.WB_MUX(ins, ALU_output, lw_value, control_unit.MemtoReg)
 
         # 5. Write the result into a register (if necessary).
         if ins == 'LW': 
@@ -173,8 +172,8 @@ class SingleStageCore(Core):
     def do_load(self, ALU_output): 
         return self.ext_dmem.readDataMem(ALU_output)
 
-    def WB_MUX(self, ins, ALU_output, lw_value): 
-        if ins == 'LW': 
+    def WB_MUX(self, ALU_output, lw_value, MemtoReg): 
+        if MemtoReg: 
             return lw_value
         return ALU_output
 
