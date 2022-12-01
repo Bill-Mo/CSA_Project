@@ -144,7 +144,7 @@ class SingleStageCore(Core):
         wb_value = self.WB_MUX(ins, ALU_output, lw_value, control_unit.MemtoReg)
 
         # 5. Write the result into a register (if necessary).
-        if ins == 'LW': 
+        if control_unit.RegWrite: 
             self.do_write_back(rd, wb_value)
 
         if self.state.IF["nop"]:
