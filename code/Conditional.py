@@ -110,7 +110,7 @@ def Itype(type, ins, imm, rs1, rd):
         return "no such operation"
 
 # S-type operations
-def SType (type, ins, imm, rs1, rd):
+def Stype (type, ins, imm, rs1, rd):
     SW()
 
 # B-type operations
