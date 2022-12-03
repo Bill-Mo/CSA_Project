@@ -4,6 +4,7 @@ from helper import *
 from decoder.decoder import Decoder
 import ControlUnit
 import Conditional
+import 
 
 MemSize = 1000 # memory size, in reality, the memory size should be 2^32, but for this lab, for the space resaon, we keep it as this large number, but the memory is still 32-bit addressable.
 
@@ -113,6 +114,7 @@ class SingleStageCore(Core):
         instr = self.ext_imem.readInstr(PC)
 
         # 2. Read registers and decode the instruction.
+        self.state.ID['Instr'] = instr
         decoder = Decoder(instr)
         parsed_instr = decoder.decode()
         type = parsed_instr[0]
@@ -131,8 +133,8 @@ class SingleStageCore(Core):
             type = parsed_instr[0]
             
         # 3. Execute the operation or calculate an address.
-        ALU_output = Conditional(type, ins, rs2, rs1, rd)
-        control_unit = ControlUnit(type)
+        ALU_control = 
+        self.state.EX[]
 
         # 4. Access an operand in data memory (if necessary).
         lw_value = 0
