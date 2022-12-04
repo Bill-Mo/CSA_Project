@@ -1,4 +1,4 @@
-class Decoder(object):
+class Parser(object):
     def __init__(self, instr) -> None:
         assert(len(instr) == 32)
 
@@ -7,39 +7,34 @@ class Decoder(object):
         self.funct3 = self.instr[17:20]
         self.opcode = self.instr[25:]
 
-    def decode(self): 
+    def parse(self): 
         
         type = self.type_decode()
         rs1 = self.instr[12:17]
         rs2 = self.instr[7:12]
         rd = self.instr[20:25]
+        
+        rs1 = int(rs1, 2)
+        rs2 = int(rs2, 2)
+        rd = int(rd, 2)
+        ins = ''
 
         if type == 'R': 
             ins = self.R_instr_decode()
-            return (type, ins, rs2, rs1, rd)
         
         elif type == 'I': 
-            imm = self.instr[:12]
             ins = self.I_instr_decode()
-            return (type, ins, imm, rs1, rd)
         
         elif type == 'S': 
-            imm = self.instr[:7] + self.instr[20:25]
             ins = self.S_instr_decode()
-            return (type, ins, imm, rs2, rs1)
 
         elif type == 'B': 
-            imm = self.instr[0] + self.instr[-8] + self.instr[1:7] + self.instr[20:24] + '0'
             ins = self.B_instr_decode()
-            return (type, ins, imm, rs2, rs1)
 
         elif type == 'J':
-            imm =  self.instr[:20]
             ins = self.J_instr_decode()
-            return (type, ins, imm, rd)
-        
-        else: 
-            return (type, )
+
+        return (type, ins, rs2, rs1, rd)
 
     def type_decode(self): 
         opcode = self.opcode
@@ -116,3 +111,20 @@ class Decoder(object):
             return 'ANDI'
         else: 
             raise Exception('Wrong instruction. In I type instruction decoder')
+    
+def ImmGen(instr, type): 
+    imm = '0'
+    if type == 'I': 
+        imm = instr[:12]
+    
+    elif type == 'S': 
+        imm = instr[:7] + instr[20:25]
+
+    elif type == 'B': 
+        imm = instr[0] + instr[-8] + instr[1:7] + instr[20:24] + '0'
+
+    elif type == 'J':
+        imm =  instr[:20]
+    
+    imm = int(imm, 2)
+    return imm

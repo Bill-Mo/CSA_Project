@@ -1,44 +1,58 @@
-def ALU_control(opcode, funct3, ALUop):
+ADD = 0b0010
+SUB = 0b0110
+AND = 0b0000
+OR = 0b0001
+
+def ALU_control(opcode, funct7, funct3, ALUop):
+    print(opcode, funct3)
     if ALUop == 0b00: 
-        return 0b0000
+        return AND
     elif ALUop == 0b01: 
-        return 0b0110
+        return SUB
     elif ALUop == 0b10: 
-        if opcode == '0000000' and funct3 == '000': 
-            return 0b0000
-        elif opcode == '0100000' and funct3 == '000': 
-            return 0b0110
-        elif opcode == '0000000' and funct3 == '111': 
-            return 0b0000
-        elif opcode == '0000000' and funct3 == '110': 
-            return 0b0001
+        if opcode == '1101111':
+            return ADD
+        elif funct7 == '0100000': 
+            return SUB
+        elif funct3 == '000': 
+            return ADD
+        elif funct3 == '111': 
+            return AND
+        elif funct3 == '110' or funct3 == '100': 
+            return OR
         else: 
-            return 0b0010
+            return ADD
+    else: 
+        return ADD
 
 
-class ALU(object): 
-    def __init__(self, ALU_control, input1, input2) -> None:
-        output = 0
+def ALU(ALU_control, ins, input1, input2):
+    if ALU_control == ADD: 
+        print('doing add')
+        output = do_add(input1, input2)
+    elif ALU_control == SUB: 
+        output = do_sub(input1, input2)
+    elif ALU_control == AND: 
+        output = do_and(input1, input2)
+    elif ALU_control == OR: 
+        if ins == 'OR' or ins == 'ORI': 
+            output = do_or(input1, input2)
+        else: 
+            output = do_xor(input1, input2)
 
-        if ALU_control == 0b0010: 
-            output = self.do_add(input1, input2)
-        elif ALU_control == 0b0110: 
-            output = self.do_sub(input1, input2)
-        elif ALU_control == 0b0000: 
-            output = self.do_and(input1, input2)
-        elif ALU_control == 0b0001: 
-            output = self.do_or(input1, input2)
+    return output
+    
+def do_add(input1, input2): 
+    return input1 + input2
 
-        return output
-        
-    def do_add(input1, input2): 
-        return input1 + input2
+def do_sub(input1, input2): 
+    return input1 - input2
 
-    def do_sub(input1, input2): 
-        return input1 - input2
+def do_and(input1, input2): 
+    return input1 & input2
 
-    def do_and(input1, input2): 
-        return input1 & input2
+def do_or(input1, input2): 
+    return input1 | input2
 
-    def do_or(input1, input2): 
-        return input1 | input2
+def do_xor(input1, input2): 
+    return input1 ^ input2

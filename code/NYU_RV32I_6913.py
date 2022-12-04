@@ -1,10 +1,10 @@
 import os
 import argparse
 from helper import *
-from decoder.decoder import Decoder
-import ControlUnit
-import Conditional
-import 
+from decoder import Parser, ImmGen
+from ControlUnit import ControlUnit
+from Conditional import Conditional
+from ALU import ALU_control, ALU
 
 MemSize = 1000 # memory size, in reality, the memory size should be 2^32, but for this lab, for the space resaon, we keep it as this large number, but the memory is still 32-bit addressable.
 
@@ -42,7 +42,7 @@ class DataMem(object):
         
     def writeDataMem(self, Address, WriteData):
         # write data into byte addressable memory
-        data = int_to_32str(WriteData)
+        data = int_to_bitstr(WriteData)
         parsedData = [data[:8], data[8:16], data[16:24], data[24:]]
         for i in range(4): 
             self.DMem[Address + i] = parsedData[i]
@@ -64,12 +64,12 @@ class RegisterFile(object):
     def writeRF(self, Reg_addr, Wrt_reg_data):
         # Write register files
         if isinstance(Wrt_reg_data, str): 
-            Wrt_reg_data = int(Wrt_reg_data)
+            Wrt_reg_data = int(Wrt_reg_data, 2)
         self.Registers[Reg_addr] = Wrt_reg_data
          
     def outputRF(self, cycle):
-        op = ["-"*70+"\n", "State of RF after executing cycle:" + str(cycle) + "\n"]
-        op.extend([str(val)+"\n" for val in self.Registers])
+        op = ["-"*60+"\n", "State of RF after executing cycle:" + str(cycle) + "\n"]
+        op.extend([int_to_bitstr(val)+"\n" for val in self.Registers])
         if(cycle == 0): perm = "w"
         else: perm = "a"
         with open(self.outputFile, perm) as file:
@@ -114,60 +114,124 @@ class SingleStageCore(Core):
         instr = self.ext_imem.readInstr(PC)
 
         # 2. Read registers and decode the instruction.
-        self.state.ID['Instr'] = instr
-        decoder = Decoder(instr)
-        parsed_instr = decoder.decode()
-        type = parsed_instr[0]
+        parser = Parser(instr)
+        funct7 = parser.funct7
+        funct3 = parser.funct3
+        opcode = parser.opcode
+        type, ins, rs2, rs1, rd = parser.parse()
+        imm = ImmGen(instr, type)
+        print('{}\t{}\tx{}\tx{}\tx{}\t{}'.format(self.cycle, ins, rd, rs1, rs2, imm))
 
-        if type == 'R': 
-            type, ins, rs2, rs1, rd = parsed_instr
-        elif type == 'I': 
-            type, ins, imm, rs1, rd = parsed_instr
-        elif type == 'S': 
-            type, ins, imm, rs2, rs1 = parsed_instr
-        elif type == 'B': 
-            type, ins, imm, rs2, rs1 = parsed_instr
-        elif type == 'J': 
-            type, ins, imm, rd = parsed_instr
-        else: 
-            type = parsed_instr[0]
+        
+        if type == 'H': 
+            self.state.IF['nop'] = True
+            self.state.ID['nop'] = True
+            self.state.EX['nop'] = True
+            self.state.MEM['nop'] = True
+            self.state.WB['nop'] = True
             
+        self.state.ID['Instr'] = instr
+
         # 3. Execute the operation or calculate an address.
-        ALU_control = 
-        self.state.EX[]
+        rs1_data = self.myRF.readRF(rs1)
+        rs2_data = self.myRF.readRF(rs2)
+
+        main_con = ControlUnit(type, ins)
+        ALU_con = ALU_control(opcode, funct7, funct3, main_con.ALUOp)
+        print(ALU_con)
+        input2 = self.EX_MUX(rs2_data, imm, main_con.ALUSrc)
+
+        ALU_output = ALU(ALU_con, ins, rs1_data, input2)
+
+        # Branch
+        if ins == 'BEQ': 
+            ALU_output = ALU_output == 0
+        elif ins == 'BNE': 
+            ALU_output = ALU_output != 0
+        branch_logic_gate = main_con.Branch & ALU_output
+        self.nextState.IF['PC'] = self.branch_MUX(PC + 4, PC + imm, branch_logic_gate)
+
+        self.state.EX = {
+            "nop": False, 
+            "Read_data1": rs1_data, 
+            "Read_data2": rs2_data, 
+            "Imm": imm, 
+            "Rs": rs1, 
+            "Rt": rs2, 
+            "Wrt_reg_addr": main_con.MemtoReg, 
+            "rd_mem": main_con.MemRead,
+            "wrt_mem": main_con.MemWrite, 
+            "alu_op": main_con.ALUOp, 
+            "wrt_enable": main_con.RegWrite, 
+            }
 
         # 4. Access an operand in data memory (if necessary).
         lw_value = 0
-        if control_unit.MemWrite: 
+        if main_con.MemWrite: 
             self.do_store(rs2, ALU_output)
-        elif control_unit.MemRead: 
+        elif main_con.MemRead: 
             lw_value = self.do_load(ALU_output)
         
-        wb_value = self.WB_MUX(ins, ALU_output, lw_value, control_unit.MemtoReg)
+        wb_value = self.WB_MUX(ALU_output, lw_value, main_con.MemtoReg)
 
+        self.state.MEM['ALUresult'] = ALU_output
+        self.state.MEM['Srote_data'] = ALU_output
+        self.state.MEM['Rs'] = rs1
+        self.state.MEM['Rt'] = rs2
+        self.state.MEM['Wrt_reg_addr'] = main_con.MemtoReg
+        self.state.MEM['rd_mem'] = main_con.MemRead
+        
         # 5. Write the result into a register (if necessary).
-        if control_unit.RegWrite: 
+        if main_con.RegWrite: 
             self.do_write_back(rd, wb_value)
+
+        self.state.WB['wrt_data'] = wb_value
+        self.state.WB['Rs'] = rs1
+        self.state.WB['Rt'] = rs2
+        self.state.WB['Wrt_reg_addr'] = main_con.MemtoReg
+        self.state.WB['wrt_enable'] = main_con.RegWrite
 
         if self.state.IF["nop"]:
             self.halted = True
-            
+        
         self.myRF.outputRF(self.cycle) # dump RF
-        self.printState(self.nextState, self.cycle) # print states after executing cycle 0, cycle 1, cycle 2 ... 
+        self.printState(self.state, self.cycle) # print states after executing cycle 0, cycle 1, cycle 2 ... 
             
         self.state = self.nextState #The end of the cycle and updates the current state with the values calculated in this cycle
         self.cycle += 1
 
     def printState(self, state, cycle):
-        printstate = ["-"*70+"\n", "State after executing cycle: " + str(cycle) + "\n"]
-        printstate.append("IF.PC: " + str(state.IF["PC"]) + "\n")
-        printstate.append("IF.nop: " + str(state.IF["nop"]) + "\n")
+        printstate = ["-"*50+"\n", "State after executing cycle: " + str(cycle) + "\n"]
+        for key in self.state.IF.keys(): 
+            printstate.append("IF.{}: {}\n".format(key, self.state.IF[key]))
+        printstate.append('\n')
+        for key in self.state.ID.keys(): 
+            printstate.append("ID.{}: {}\n".format(key, self.state.ID[key]))
+        printstate.append('\n')
+        for key in self.state.EX.keys(): 
+            printstate.append("EX.{}: {}\n".format(key, self.state.EX[key]))
+        printstate.append('\n')
+        for key in self.state.MEM.keys(): 
+            printstate.append("MEM.{}: {}\n".format(key, self.state.MEM[key]))
+        printstate.append('\n')
+        for key in self.state.WB.keys(): 
+            printstate.append("WB.{}: {}\n".format(key, self.state.WB[key]))
         
         if(cycle == 0): perm = "w"
         else: perm = "a"
         with open(self.opFilePath, perm) as wf:
             wf.writelines(printstate)
-    
+
+    def EX_MUX(self, rs2, imm, ALUSrc): 
+        if ALUSrc: 
+            return imm
+        return rs2
+
+    def branch_MUX(self, next, branch, logic_bit):
+        if logic_bit: 
+            return branch
+        return next
+
     def do_store(self, rs2, ALU_output): 
         self.ext_dmem.writeDataMem(ALU_output, rs2)
     
@@ -237,7 +301,9 @@ if __name__ == "__main__":
     parser.add_argument('--iodir', default="", type=str, help='Directory containing the input files.')
     args = parser.parse_args()
 
-    ioDir = os.path.abspath(args.iodir)
+    test_case = 1
+    test_path = '\\6913_ProjA_TC\\TC' + str(test_case)
+    ioDir = os.path.abspath(args.iodir) + test_path
     print("IO Directory:", ioDir)
 
     imem = InsMem("Imem", ioDir)

@@ -1,5 +1,5 @@
 # Convert a binary bit to srting and pad zeros in the front
-def int_to_32str(bit: int) ->str: 
+def int_to_bitstr(bit: int) ->str: 
     '''
 
     Convert a int to a 32 bits binary srting and pad zeros in the front.
@@ -15,9 +15,18 @@ def int_to_32str(bit: int) ->str:
     
     bit = bin(bit)[2:]
     if len(bit) > 32:
-            raise Exception('Too big data')
-
-    while len(bit) < 32: 
-            bit = '0' + bit
+        raise Exception('Too big data with length {}'.format(len(bit)))
     
+    while len(bit) < 32: 
+        bit = '0' + bit
     return bit
+
+
+def bitstr_to_int(bitstr): 
+    if len(bitstr) == 32 and bitstr[0] == '1': 
+        for i, bit in enumerate(bitstr): 
+            if bit == '0': 
+                bitstr[i] = '1'
+            else: 
+                bitstr[i] = '0'
+    return bitstr
