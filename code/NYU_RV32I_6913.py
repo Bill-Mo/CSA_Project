@@ -15,6 +15,8 @@ class InsMem(object):
         with open(ioDir + "\\imem.txt") as im:
             self.IMem = [data.replace("\n", "") for data in im.readlines()]
             # print('Imem: {}'.format(self.IMem))
+        while len(self.IMem) < MemSize: 
+            self.IMem.append('00000000')
 
     def readInstr(self, ReadAddress):
         #read instruction memory
@@ -31,10 +33,15 @@ class DataMem(object):
         with open(ioDir + "\\dmem.txt") as dm:
             self.DMem = [data.replace("\n", "") for data in dm.readlines()]
             # print('Dmem: {}'.format(self.DMem))
+        while len(self.DMem) < MemSize: 
+            self.DMem.append('00000000')
 
     def readDataMem(self, ReadAddress):
         #read data memory
         #return 32 bit hex val
+        if isinstance(ReadAddress, str): 
+            ReadAddress = bitstr_to_int(ReadAddress)
+
         data = ''
         for i in range(4): 
             data += self.DMem[ReadAddress + i]
@@ -42,10 +49,16 @@ class DataMem(object):
         
     def writeDataMem(self, Address, WriteData):
         # write data into byte addressable memory
-        data = int_to_bitstr(WriteData)
-        parsedData = [data[:8], data[8:16], data[16:24], data[24:]]
+        if isinstance(WriteData, int): 
+            WriteData = int_to_bitstr(WriteData)
+        if isinstance(Address, str): 
+            Address = bitstr_to_int(Address)
+
+        parsedData = [WriteData[:8], WriteData[8:16], WriteData[16:24], WriteData[24:]]
+        print('Before write: {}',format(self.DMem[Address:Address + 10]))
         for i in range(4): 
             self.DMem[Address + i] = parsedData[i]
+        print('After write: {}',format(self.DMem[Address:Address + 10]))
                      
     def outputDataMem(self):
         resPath = self.ioDir + "\\" + self.id + "_DMEMResult.txt"
@@ -55,21 +68,25 @@ class DataMem(object):
 class RegisterFile(object):
     def __init__(self, ioDir):
         self.outputFile = ioDir + "RFResult.txt"
-        self.Registers = [0x0 for i in range(32)]
+        self.Registers = ['0'*32 for i in range(32)]
     
     def readRF(self, Reg_addr):
         # Read register files
+        if isinstance(Reg_addr, str): 
+            Reg_addr = bitstr_to_int(Reg_addr)
+
         return self.Registers[Reg_addr]
     
     def writeRF(self, Reg_addr, Wrt_reg_data):
         # Write register files
-        if isinstance(Wrt_reg_data, str): 
-            Wrt_reg_data = int(Wrt_reg_data, 2)
+        if isinstance(Wrt_reg_data, int): 
+            Wrt_reg_data = int_to_bitstr(Wrt_reg_data)
+
         self.Registers[Reg_addr] = Wrt_reg_data
          
     def outputRF(self, cycle):
-        op = ["-"*60+"\n", "State of RF after executing cycle:" + str(cycle) + "\n"]
-        op.extend([int_to_bitstr(val)+"\n" for val in self.Registers])
+        op = ["State of RF after executing cycle:" + str(cycle) + "\n"]
+        op.extend([val+"\n" for val in self.Registers])
         if(cycle == 0): perm = "w"
         else: perm = "a"
         with open(self.outputFile, perm) as file:
@@ -118,8 +135,12 @@ class SingleStageCore(Core):
         funct7 = parser.funct7
         funct3 = parser.funct3
         opcode = parser.opcode
-        type, ins, rs2, rs1, rd = parser.parse()
-        imm = ImmGen(instr, type)
+        type, ins, rs2_raw, rs1_raw, rd_raw = parser.parse()
+        imm_raw = ImmGen(instr, type)
+        rs2 = int(rs2_raw, 2)
+        rs1 = int(rs1_raw, 2)
+        rd = int(rd_raw, 2)
+        imm = bitstr_to_int(imm_raw)
         print('{}\t{}\tx{}\tx{}\tx{}\t{}'.format(self.cycle, ins, rd, rs1, rs2, imm))
 
         
@@ -133,28 +154,32 @@ class SingleStageCore(Core):
         self.state.ID['Instr'] = instr
 
         # 3. Execute the operation or calculate an address.
-        rs1_data = self.myRF.readRF(rs1)
-        rs2_data = self.myRF.readRF(rs2)
+        rs1_data_raw = self.myRF.readRF(rs1)
+        rs2_data_raw = self.myRF.readRF(rs2)
+        if type == 'J': 
+            rs1_data_raw = int_to_bitstr(PC)
+            rs2_data_raw = int_to_bitstr(4)
 
         main_con = ControlUnit(type, ins)
         ALU_con = ALU_control(opcode, funct7, funct3, main_con.ALUOp)
-        print(ALU_con)
-        input2 = self.EX_MUX(rs2_data, imm, main_con.ALUSrc)
+        input2_raw = self.EX_MUX(rs2_data_raw, imm_raw, main_con.ALUSrc)
 
-        ALU_output = ALU(ALU_con, ins, rs1_data, input2)
+        ALU_output = ALU(ALU_con, ins, rs1_data_raw, input2_raw)
 
         # Branch
-        if ins == 'BEQ': 
-            ALU_output = ALU_output == 0
-        elif ins == 'BNE': 
-            ALU_output = ALU_output != 0
-        branch_logic_gate = main_con.Branch & ALU_output
-        self.nextState.IF['PC'] = self.branch_MUX(PC + 4, PC + imm, branch_logic_gate)
+        if type != 'H':
+            if ins == 'BEQ': 
+                ALU_output = ALU_output == 0
+            elif ins == 'BNE': 
+                ALU_output = ALU_output != 0
+            branch_logic_gate = main_con.Branch and ALU_output
+            self.nextState.IF['PC'] = self.branch_MUX(PC + 4, PC + imm, branch_logic_gate)
+            self.state.IF['PC'] = self.nextState.IF['PC']
 
         self.state.EX = {
             "nop": False, 
-            "Read_data1": rs1_data, 
-            "Read_data2": rs2_data, 
+            "Read_data1": rs1_data_raw, 
+            "Read_data2": rs2_data_raw, 
             "Imm": imm, 
             "Rs": rs1, 
             "Rt": rs2, 
@@ -167,15 +192,17 @@ class SingleStageCore(Core):
 
         # 4. Access an operand in data memory (if necessary).
         lw_value = 0
-        if main_con.MemWrite: 
-            self.do_store(rs2, ALU_output)
-        elif main_con.MemRead: 
-            lw_value = self.do_load(ALU_output)
-        
-        wb_value = self.WB_MUX(ALU_output, lw_value, main_con.MemtoReg)
+        ALU_output_raw = int_to_bitstr(ALU_output)
 
-        self.state.MEM['ALUresult'] = ALU_output
-        self.state.MEM['Srote_data'] = ALU_output
+        if main_con.MemWrite: 
+            self.do_store(rs2_data_raw, ALU_output_raw)
+        elif main_con.MemRead: 
+            lw_value = self.do_load(ALU_output_raw)
+        
+        wb_value = self.WB_MUX(ALU_output_raw, lw_value, main_con.MemtoReg)
+
+        self.state.MEM['ALUresult'] = ALU_output_raw
+        self.state.MEM['Store_data'] = rs2
         self.state.MEM['Rs'] = rs1
         self.state.MEM['Rt'] = rs2
         self.state.MEM['Wrt_reg_addr'] = main_con.MemtoReg
@@ -203,19 +230,19 @@ class SingleStageCore(Core):
     def printState(self, state, cycle):
         printstate = ["-"*50+"\n", "State after executing cycle: " + str(cycle) + "\n"]
         for key in self.state.IF.keys(): 
-            printstate.append("IF.{}: {}\n".format(key, self.state.IF[key]))
+            printstate.append("IF.{}: {}\n".format(key, state.IF[key]))
         printstate.append('\n')
-        for key in self.state.ID.keys(): 
-            printstate.append("ID.{}: {}\n".format(key, self.state.ID[key]))
+        for key in state.ID.keys(): 
+            printstate.append("ID.{}: {}\n".format(key, state.ID[key]))
         printstate.append('\n')
-        for key in self.state.EX.keys(): 
-            printstate.append("EX.{}: {}\n".format(key, self.state.EX[key]))
+        for key in state.EX.keys(): 
+            printstate.append("EX.{}: {}\n".format(key, state.EX[key]))
         printstate.append('\n')
-        for key in self.state.MEM.keys(): 
-            printstate.append("MEM.{}: {}\n".format(key, self.state.MEM[key]))
+        for key in state.MEM.keys(): 
+            printstate.append("MEM.{}: {}\n".format(key, state.MEM[key]))
         printstate.append('\n')
-        for key in self.state.WB.keys(): 
-            printstate.append("WB.{}: {}\n".format(key, self.state.WB[key]))
+        for key in state.WB.keys(): 
+            printstate.append("WB.{}: {}\n".format(key, state.WB[key]))
         
         if(cycle == 0): perm = "w"
         else: perm = "a"
@@ -232,8 +259,8 @@ class SingleStageCore(Core):
             return branch
         return next
 
-    def do_store(self, rs2, ALU_output): 
-        self.ext_dmem.writeDataMem(ALU_output, rs2)
+    def do_store(self, rs2_data_raw, ALU_output): 
+        self.ext_dmem.writeDataMem(ALU_output, rs2_data_raw)
     
     def do_load(self, ALU_output): 
         return self.ext_dmem.readDataMem(ALU_output)
@@ -301,7 +328,7 @@ if __name__ == "__main__":
     parser.add_argument('--iodir', default="", type=str, help='Directory containing the input files.')
     args = parser.parse_args()
 
-    test_case = 1
+    test_case = 3
     test_path = '\\6913_ProjA_TC\\TC' + str(test_case)
     ioDir = os.path.abspath(args.iodir) + test_path
     print("IO Directory:", ioDir)

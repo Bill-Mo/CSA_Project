@@ -1,12 +1,12 @@
+from helper import *
 ADD = 0b0010
 SUB = 0b0110
 AND = 0b0000
 OR = 0b0001
 
 def ALU_control(opcode, funct7, funct3, ALUop):
-    print(opcode, funct3)
     if ALUop == 0b00: 
-        return AND
+        return ADD
     elif ALUop == 0b01: 
         return SUB
     elif ALUop == 0b10: 
@@ -26,9 +26,10 @@ def ALU_control(opcode, funct7, funct3, ALUop):
         return ADD
 
 
-def ALU(ALU_control, ins, input1, input2):
+def ALU(ALU_control, ins, input1_raw, input2_raw):
+    input1 =  bitstr_to_int(input1_raw)
+    input2 = bitstr_to_int(input2_raw)
     if ALU_control == ADD: 
-        print('doing add')
         output = do_add(input1, input2)
     elif ALU_control == SUB: 
         output = do_sub(input1, input2)

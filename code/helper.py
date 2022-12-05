@@ -12,21 +12,33 @@ def int_to_bitstr(bit: int) ->str:
             return bit
         else: 
             raise Exception('The input is neither a int nor a string')
-    
-    bit = bin(bit)[2:]
-    if len(bit) > 32:
-        raise Exception('Too big data with length {}'.format(len(bit)))
-    
-    while len(bit) < 32: 
-        bit = '0' + bit
-    return bit
-
-
-def bitstr_to_int(bitstr): 
-    if len(bitstr) == 32 and bitstr[0] == '1': 
-        for i, bit in enumerate(bitstr): 
-            if bit == '0': 
-                bitstr[i] = '1'
+    if bit < 0 : 
+        reverse_bit = -bit - 1
+        reverse_bitstr = bin(reverse_bit)[2:]
+        bitstr = ''
+        for bit in reverse_bitstr: 
+            if bit == '1':
+                bitstr += '0'
             else: 
-                bitstr[i] = '0'
+                bitstr += '1'
+
+        if len(bitstr) > 32:
+            bitstr = bitstr[-32:]
+        while len(bitstr) < 32: 
+            bitstr = '1' + bitstr
+    else: 
+        bitstr = bin(bit)[2:]
+        if len(bitstr) > 32:
+            bitstr = bitstr[-32:]
+        
+        while len(bitstr) < 32: 
+            bitstr = '0' + bitstr
     return bitstr
+
+
+def bitstr_to_int(bitstr):
+        uint = int(bitstr, 2)
+        bitlen = len(bitstr)
+        if (uint & (1 << (bitlen - 1))) != 0:
+            uint = uint - (1 << bitlen)
+        return uint

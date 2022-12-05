@@ -1,3 +1,4 @@
+from helper import *
 class Parser(object):
     def __init__(self, instr) -> None:
         assert(len(instr) == 32)
@@ -10,13 +11,13 @@ class Parser(object):
     def parse(self): 
         
         type = self.type_decode()
-        rs1 = self.instr[12:17]
-        rs2 = self.instr[7:12]
-        rd = self.instr[20:25]
+        rs1_raw = self.instr[12:17]
+        rs2_raw = self.instr[7:12]
+        rd_raw = self.instr[20:25]
         
-        rs1 = int(rs1, 2)
-        rs2 = int(rs2, 2)
-        rd = int(rd, 2)
+        # rs1 = int(rs1, 2)
+        # rs2 = int(rs2, 2)
+        # rd = int(rd, 2)
         ins = ''
 
         if type == 'R': 
@@ -33,8 +34,10 @@ class Parser(object):
 
         elif type == 'J':
             ins = self.J_instr_decode()
+        else: 
+            ins = 'HALT'
 
-        return (type, ins, rs2, rs1, rd)
+        return (type, ins, rs2_raw, rs1_raw, rd_raw)
 
     def type_decode(self): 
         opcode = self.opcode
@@ -52,7 +55,6 @@ class Parser(object):
         elif opcode == '1111111': 
             return 'H'
         else: 
-            print(opcode)
             raise Exception('Wrong instruction type')
 
     def R_instr_decode(self): 
@@ -113,18 +115,19 @@ class Parser(object):
             raise Exception('Wrong instruction. In I type instruction decoder')
     
 def ImmGen(instr, type): 
-    imm = '0'
+    imm_raw = '0'
     if type == 'I': 
-        imm = instr[:12]
+        imm_raw = instr[:12]
     
     elif type == 'S': 
-        imm = instr[:7] + instr[20:25]
+        imm_raw = instr[:7] + instr[20:25]
 
     elif type == 'B': 
-        imm = instr[0] + instr[-8] + instr[1:7] + instr[20:24] + '0'
+        imm_raw = instr[0] + instr[-8] + instr[1:7] + instr[20:24] + '0'
 
     elif type == 'J':
-        imm =  instr[:20]
+        imm_raw = instr[0] + instr[12:20] + instr[1:11] + '0'
     
-    imm = int(imm, 2)
-    return imm
+    imm_raw = bitstr_to_int(imm_raw)
+    imm_raw = int_to_bitstr(imm_raw)
+    return imm_raw
