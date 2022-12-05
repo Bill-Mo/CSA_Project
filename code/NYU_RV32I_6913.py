@@ -280,11 +280,11 @@ class FiveStageCore(Core):
 
     def step(self):
         # Your implementation
-        # --------------------- WB stage ---------------------
+        # --------------------- IF stage ---------------------
         
         
         
-        # --------------------- MEM stage --------------------
+        # --------------------- ID stage --------------------
         
         
         
@@ -292,11 +292,11 @@ class FiveStageCore(Core):
         
         
         
-        # --------------------- ID stage ---------------------
+        # --------------------- MEM stage ---------------------
         
         
         
-        # --------------------- IF stage ---------------------
+        # --------------------- WB stage ---------------------
         
         self.halted = True
         if self.state.IF["nop"] and self.state.ID["nop"] and self.state.EX["nop"] and self.state.MEM["nop"] and self.state.WB["nop"]:
