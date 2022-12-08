@@ -57,3 +57,12 @@ class ControlUnit(object):
             self.MemWrite = 0
             self.Branch = 1
             self.ALUOp = 0b10
+
+    def stall(self): 
+        self.Branch = 0
+        self.MemRead = 0
+        self.MemtoReg = 0
+        self.ALUOp = 0
+        self.MemWrite = 0
+        self.ALUSrc = 0
+        self.RegWrite = 0

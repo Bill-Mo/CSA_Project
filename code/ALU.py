@@ -41,7 +41,7 @@ def ALU(ALU_control, ins, input1_raw, input2_raw):
         else: 
             output = do_xor(input1, input2)
 
-    return output
+    return int_to_bitstr(output)
     
 def do_add(input1, input2): 
     return input1 + input2

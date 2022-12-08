@@ -37,8 +37,10 @@ def int_to_bitstr(bit: int) ->str:
 
 
 def bitstr_to_int(bitstr):
-        uint = int(bitstr, 2)
-        bitlen = len(bitstr)
-        if (uint & (1 << (bitlen - 1))) != 0:
-            uint = uint - (1 << bitlen)
-        return uint
+    if isinstance(bitstr, int): 
+        return bitstr
+    integer = int(bitstr, 2)
+    bitlen = len(bitstr)
+    if (integer & (1 << (bitlen - 1))) != 0:
+        integer = integer - (1 << bitlen)
+    return integer
