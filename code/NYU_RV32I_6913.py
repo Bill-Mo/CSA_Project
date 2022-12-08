@@ -92,9 +92,9 @@ class RegisterFile(object):
 
 class State(object):
     def __init__(self):
-        self.IF = {"nop": False, "PC": 0, 'PCSrc': 0, 'PCWrite': 1, 'Flush': False}
+        self.IF = {"nop": False, "PC": 0, 'PCSrc': 0, 'PCWrite': 1, 'Flush': 0}
         self.ID = {"nop": False, 'PC': 0, "Instr": '0', "Rs1": 0, "Rs2": 0, "Rd": 0,}
-        self.EX = {"nop": False, 'Ins': '', "Read_data1": 0, "Read_data2": 0, "Imm": 0, "Rs1": 0, "Rs2": 0, "Rd": 0, 'funct7': '', 'funct3': '', 'opcode': '', "Branch": 0, "MemRead": 0, "MemtoReg": 0, "ALUOp": 0, 'MemWrite': 0, 'ALUSrc': 0, 'RegWrite': 0}
+        self.EX = {"nop": False, 'Ins': '', "Read_data1": 0, "Read_data2": 0, "Imm": 0, "Rs1": 0, "Rs2": 0, "Rd": 0, 'funct7': '', 'funct3': '', 'opcode': '', 'ALUoutput': '0', "Branch": 0, "MemRead": 0, "MemtoReg": 0, "ALUOp": 0, 'MemWrite': 0, 'ALUSrc': 0, 'RegWrite': 0}
         self.MEM = {"nop": False, "ALUoutput": 0, 'Read_data2': 0, 'Load_data': 0, "Rs1": 0, "Rs2": 0, 'Rd': 0, "MemtoReg": 0, "MemRead": 0, "MemWrite": 0, "RegWrite": 0}
         self.WB = {"nop": False, "ALUoutput": 0, 'Write_data': 0, "Rs1": 0, "Rs2": 0, "Rd": 0, "RegWrite": 0, 'MemtoReg': 0}
 
@@ -164,9 +164,9 @@ class SingleStageCore(Core):
         # Branch
         ALU_zero = 0
         if ins == 'BEQ': 
-            ALU_zero = ALU_output_raw == 0
+            ALU_zero = ALU_output_raw == '0' * 32
         elif ins == 'BNE': 
-            ALU_zero = ALU_output_raw != 0
+            ALU_zero = ALU_output_raw != '0' * 32
         PCsrc = main_con.Branch and ALU_zero
         self.nextState.IF['PC'] = self.branch_MUX(PC + 4, PC + imm, PCsrc)
         self.state.IF['PC'] = self.nextState.IF['PC']
@@ -283,19 +283,16 @@ class FiveStageCore(Core):
         # Your implementation
         # --------------------- WB stage ---------------------
         if not self.state.WB['nop']: 
-            # print('in wb')
             self.WB()
         
         # --------------------- MEM stage --------------------
         if not self.state.MEM['nop']: 
-            # print('in mem')
             self.MEM()
         else: 
             self.nextState.WB['nop'] = True
 
         # --------------------- EX stage ---------------------
         if not self.state.EX['nop']: 
-            # print('in ex')
             forwarding = self.forwarding_unit()
             # print(forwarding)
             self.EX(forwarding)
@@ -304,7 +301,6 @@ class FiveStageCore(Core):
 
         # --------------------- ID stage ---------------------
         if not self.state.ID['nop']:
-            # print('in id')
             self.ID()
         else: 
             self.nextState.EX['nop'] = True
@@ -312,7 +308,6 @@ class FiveStageCore(Core):
 
         # --------------------- IF stage ---------------------
         if not self.state.IF['nop']: 
-            # print('in if')
             self.IF()
         else: 
             self.nextState.IF['nop'] = True
@@ -382,6 +377,7 @@ class FiveStageCore(Core):
         # print('1: {}, B: {}, 2: {}'.format(input1_raw, inputB_raw, input2_raw))
         ALU_output_raw = ALU(ALU_con, ins, input1_raw, input2_raw)
 
+        self.state.EX['ALUoutput'] = ALU_output_raw
         self.nextState.MEM['nop'] = False
         self.nextState.MEM['ALUoutput'] = ALU_output_raw
         self.nextState.MEM['Read_data2'] = inputB_raw
@@ -394,78 +390,83 @@ class FiveStageCore(Core):
         self.nextState.MEM['MemtoReg'] = self.state.EX['MemtoReg']
 
     def ID(self): 
-        instr = self.state.ID['Instr']
-        PC = self.state.ID['PC']
-        parser = Parser(instr)
-        funct7 = parser.funct7
-        funct3 = parser.funct3
-        opcode = parser.opcode
-        type, ins, rs2_raw, rs1_raw, rd_raw = parser.parse()
-        imm_raw = ImmGen(instr, type)
-        rs2 = int(rs2_raw, 2)
-        rs1 = int(rs1_raw, 2)
-        rd = int(rd_raw, 2)
-        rs1_data_raw = self.myRF.readRF(rs1)
-        rs2_data_raw = self.myRF.readRF(rs2)
-        if type == 'J': 
-            rs1_data_raw = int_to_bitstr(PC)
-            rs2_data_raw = int_to_bitstr(4)
+        if not self.state.IF['Flush']: 
+            instr = self.state.ID['Instr']
+            PC = self.state.ID['PC']
+            parser = Parser(instr)
+            funct7 = parser.funct7
+            funct3 = parser.funct3
+            opcode = parser.opcode
+            type, ins, rs2_raw, rs1_raw, rd_raw = parser.parse()
+            imm_raw = ImmGen(instr, type)
+            rs2 = int(rs2_raw, 2)
+            rs1 = int(rs1_raw, 2)
+            rd = int(rd_raw, 2)
+            rs1_data_raw = self.myRF.readRF(rs1)
+            rs2_data_raw = self.myRF.readRF(rs2)
+            if type == 'J': 
+                rs1_data_raw = int_to_bitstr(PC)
+                rs2_data_raw = int_to_bitstr(4)
 
-        if type == 'H': 
-            self.nextState.ID['nop'] = True
-            self.nextState.IF['nop'] = True
+            if type == 'H': 
+                self.nextState.EX['nop'] = True
+                self.nextState.ID['nop'] = True
+                self.nextState.IF['nop'] = True
 
-        self.state.ID['Rs1'] = rs1
-        self.state.ID['Rs2'] = rs2
-        self.state.ID['Rd'] = rd
+            self.state.ID['Rs1'] = rs1
+            self.state.ID['Rs2'] = rs2
+            self.state.ID['Rd'] = rd
 
-        # Control unit
-        main_con = ControlUnit(type, ins)
-        PCWrite, IF_IDWrite = self.hazard_detection_unit()
-        self.state.IF['PCWrite'] = PCWrite
-        self.control_MUX(main_con, PCWrite)
-        # self.clear_IF_ID(IF_IDWrite)
+            # Control unit
+            main_con = ControlUnit(type, ins)
+            PCWrite, IF_IDWrite = self.hazard_detection_unit()
+            self.state.IF['PCWrite'] = PCWrite
+            self.control_MUX(main_con, PCWrite)
+            # self.clear_IF_ID(IF_IDWrite)
 
-        # Branch
-        jump = 1
-        if ins == 'BEQ': 
-            jump = rs1_data_raw == rs2_data_raw
-        elif ins == 'BNE': 
-            jump = rs1_data_raw != rs2_data_raw
-        self.state.IF['PCSrc'] = main_con.Branch and jump
-        self.nextState.IF['PC'] = self.branch_MUX(imm_raw, PCWrite)
+            # Branch
+            jump = 1
+            forwardA, forwardB = self.branch_forward()
+            compare1_raw = self.ID_MUX_A(rs1_data_raw, forwardA)
+            compare2_raw = self.ID_MUX_B(rs2_data_raw, forwardB)
+            if ins == 'BEQ': 
+                jump = compare1_raw == compare2_raw
+            elif ins == 'BNE': 
+                jump = compare1_raw != compare2_raw
+            self.state.IF['PCSrc'] = main_con.Branch and jump
+            self.nextState.IF['PC'] = self.branch_MUX(imm_raw, PCWrite)
 
-        self.nextState.EX['nop'] = False
-        self.nextState.EX['Ins'] = ins
-        self.nextState.EX['Read_data1'] = rs1_data_raw
-        self.nextState.EX['Read_data2'] = rs2_data_raw
-        self.nextState.EX['Imm'] = imm_raw
-        self.nextState.EX['Rs1'] = rs1
-        self.nextState.EX['Rs2'] = rs2
-        self.nextState.EX['Rd'] = rd
-        self.nextState.EX['funct3'] = funct3
-        self.nextState.EX['funct7'] = funct7
-        self.nextState.EX['opcode'] = opcode
-        self.nextState.EX['Branch'] = main_con.Branch
-        self.nextState.EX['MemRead'] = main_con.MemRead
-        self.nextState.EX['MemtoReg'] = main_con.MemtoReg
-        self.nextState.EX['ALUOp'] = main_con.ALUOp
-        self.nextState.EX['MemWrite'] = main_con.MemWrite
-        self.nextState.EX['ALUSrc'] = main_con.ALUSrc
-        self.nextState.EX['RegWrite'] = main_con.RegWrite
-        
-        if IF_IDWrite: 
-            print('{}\t{}\tx{}\tx{}\tx{}\t{}'.format(self.cycle, ins, rd, rs1, rs2, bitstr_to_int(imm_raw)))
+            self.nextState.EX['nop'] = False
+            self.nextState.EX['Ins'] = ins
+            self.nextState.EX['Read_data1'] = rs1_data_raw
+            self.nextState.EX['Read_data2'] = rs2_data_raw
+            self.nextState.EX['Imm'] = imm_raw
+            self.nextState.EX['Rs1'] = rs1
+            self.nextState.EX['Rs2'] = rs2
+            self.nextState.EX['Rd'] = rd
+            self.nextState.EX['funct3'] = funct3
+            self.nextState.EX['funct7'] = funct7
+            self.nextState.EX['opcode'] = opcode
+            self.nextState.EX['Branch'] = main_con.Branch
+            self.nextState.EX['MemRead'] = main_con.MemRead
+            self.nextState.EX['MemtoReg'] = main_con.MemtoReg
+            self.nextState.EX['ALUOp'] = main_con.ALUOp
+            self.nextState.EX['MemWrite'] = main_con.MemWrite
+            self.nextState.EX['ALUSrc'] = main_con.ALUSrc
+            self.nextState.EX['RegWrite'] = main_con.RegWrite
+            
+            if IF_IDWrite: 
+                print('{}\t{}\tx{}\tx{}\tx{}\t{}'.format(self.cycle, ins, rd, rs1, rs2, bitstr_to_int(imm_raw)))
+            else: 
+                print('{}\tnop'.format(self.cycle))
+                self.nextState.IF['PC'] = self.state.IF['PC']
+                self.nextState.ID = self.state.ID
         else: 
-            print('{}\tnop'.format(self.cycle))
-            self.nextState.IF['PC'] = self.state.IF['PC']
-            self.nextState.ID = self.state.ID
+            self.nextState.IF['PC'] = self.state.IF['PC'] + 4
 
     def IF(self):
         PC = self.state.IF['PC']
         instr = self.ext_imem.readInstr(PC)
-        
-        self.state.IF['Flush'] = self.state.IF['PCSrc']
 
         if self.state.IF['PCWrite']:
             self.nextState.ID['PC'] = PC
@@ -476,7 +477,6 @@ class FiveStageCore(Core):
         if self.state.IF['PCWrite']: 
             self.nextState.ID['Instr'] = instr
         
-
     def WB_MUX(self, ALU_output_raw, lw_value, MemtoReg): 
         if MemtoReg: 
             return lw_value
@@ -525,11 +525,49 @@ class FiveStageCore(Core):
         if PCWrite: 
             imm = bitstr_to_int(imm_raw)
             if self.state.IF['PCSrc']: 
+                self.nextState.IF['Flush'] = 1
                 return self.state.ID['PC'] + imm
             else: 
                 return self.state.IF['PC'] + 4
         return self.state.ID['PC']
     
+    def ID_MUX_A(self, rs1, forwardA):
+        if forwardA == 0b00: 
+            return rs1
+        elif forwardA == 0b10: 
+            return self.state.EX['ALUoutput']
+        elif forwardA == 0b01: 
+            return self.state.MEM['Load_data']
+
+    def ID_MUX_B(self, rs2, forwardB): 
+        if forwardB == 0b00: 
+            return rs2
+        elif forwardB == 0b10: 
+            return self.state.EX['ALUoutput']
+        elif forwardB == 0b01: 
+            return self.state.MEM['Load_data']
+    
+    def branch_forward(self): 
+        forwardA = 0
+        forwardB = 0
+        EX_MEM = self.state.MEM
+        ID_EX = self.state.EX
+        IF_ID = self.state.ID
+
+        if (ID_EX['RegWrite'] and (ID_EX['Rd'] != 0) and (ID_EX['Rd'] == IF_ID['Rs1'])): 
+            forwardA = 0b10
+
+        if (ID_EX['RegWrite'] and (ID_EX['Rd'] != 0) and (ID_EX['Rd'] == IF_ID['Rs2'])):
+            forwardB = 0b10
+
+        if EX_MEM['RegWrite'] and (EX_MEM['Rd'] != 0) and not(ID_EX['RegWrite'] and (ID_EX['Rd'] != 0) and (ID_EX['Rd'] == IF_ID['Rs1'])) and (EX_MEM['Rd'] == IF_ID['Rs1']):
+            forwardA = 0b01
+
+        if (EX_MEM['RegWrite'] and (EX_MEM['Rd'] != 0) and not(ID_EX['RegWrite'] and (ID_EX['Rd'] != 0) and (ID_EX['Rd'] == IF_ID['Rs2'])) and (EX_MEM['Rd'] == EX_MEM['Rs2'])): 
+            forwardB = 0b01
+        
+        return (forwardA, forwardB)
+
     def do_store(self, rs2_data_raw, ALU_output_raw): 
         # print(rs2_data_raw, ALU_output_raw, self.cycle)
         self.ext_dmem.writeDataMem(ALU_output_raw, rs2_data_raw)
@@ -594,7 +632,7 @@ if __name__ == "__main__":
     parser.add_argument('--iodir', default="", type=str, help='Directory containing the input files.')
     args = parser.parse_args()
 
-    test_case = 2
+    test_case = 4
     test_path = '\\6913_ProjA_TC\\TC' + str(test_case)
     ioDir = os.path.abspath(args.iodir) + test_path
     print("IO Directory:", ioDir)
@@ -607,15 +645,15 @@ if __name__ == "__main__":
     fsCore = FiveStageCore(ioDir, imem, dmem_fs)
 
     while(True):
-        if not ssCore.halted:
-            ssCore.step()
+        # if not ssCore.halted:
+        #     ssCore.step()
         
-        # if not fsCore.halted:
-        #     fsCore.step()
+        if not fsCore.halted:
+            fsCore.step()
 
         # if ssCore.halted and fsCore.halted:
         #     break
-        if ssCore.halted: 
+        if fsCore.halted: 
             break
     
     # dump SS and FS data mem.

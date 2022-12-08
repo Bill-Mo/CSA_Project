@@ -22,6 +22,7 @@ EX.Rd: 0
 EX.funct7: 
 EX.funct3: 
 EX.opcode: 
+EX.ALUoutput: 0
 EX.Branch: 0
 EX.MemRead: 0
 EX.MemtoReg: 0
@@ -72,6 +73,7 @@ EX.Rd: 0
 EX.funct7: 
 EX.funct3: 
 EX.opcode: 
+EX.ALUoutput: 0
 EX.Branch: 0
 EX.MemRead: 0
 EX.MemtoReg: 0
@@ -122,6 +124,7 @@ EX.Rd: 1
 EX.funct7: 0000000
 EX.funct3: 000
 EX.opcode: 0000011
+EX.ALUoutput: 00000000000000000000000000000000
 EX.Branch: 0
 EX.MemRead: 1
 EX.MemtoReg: 1
@@ -172,6 +175,7 @@ EX.Rd: 2
 EX.funct7: 0000000
 EX.funct3: 000
 EX.opcode: 0000011
+EX.ALUoutput: 00000000000000000000000000000100
 EX.Branch: 0
 EX.MemRead: 1
 EX.MemtoReg: 1
@@ -222,6 +226,7 @@ EX.Rd: 3
 EX.funct7: 0000000
 EX.funct3: 000
 EX.opcode: 0110011
+EX.ALUoutput: 01010101010101010101010101011001
 EX.Branch: 0
 EX.MemRead: 0
 EX.MemtoReg: 0
@@ -272,6 +277,7 @@ EX.Rd: 3
 EX.funct7: 0000000
 EX.funct3: 000
 EX.opcode: 0110011
+EX.ALUoutput: 10001000100010001000100010001000
 EX.Branch: 0
 EX.MemRead: 0
 EX.MemtoReg: 0
@@ -322,6 +328,7 @@ EX.Rd: 8
 EX.funct7: 0000000
 EX.funct3: 010
 EX.opcode: 0100011
+EX.ALUoutput: 00000000000000000000000000001000
 EX.Branch: 0
 EX.MemRead: 0
 EX.MemtoReg: 0
@@ -354,7 +361,7 @@ IF.nop: True
 IF.PC: 24
 IF.PCSrc: 0
 IF.PCWrite: 1
-IF.Flush: False
+IF.Flush: 0
 ID.nop: True
 ID.PC: 20
 ID.Instr: 00000000000000000000000000000000
@@ -372,6 +379,7 @@ EX.Rd: 31
 EX.funct7: 1111111
 EX.funct3: 111
 EX.opcode: 1111111
+EX.ALUoutput: 00000000000000000000000000000000
 EX.Branch: 0
 EX.MemRead: 0
 EX.MemtoReg: 0
@@ -404,7 +412,7 @@ IF.nop: True
 IF.PC: 0
 IF.PCSrc: 0
 IF.PCWrite: 1
-IF.Flush: False
+IF.Flush: 0
 ID.nop: True
 ID.PC: 0
 ID.Instr: 0
@@ -422,6 +430,7 @@ EX.Rd: 0
 EX.funct7: 
 EX.funct3: 
 EX.opcode: 
+EX.ALUoutput: 0
 EX.Branch: 0
 EX.MemRead: 0
 EX.MemtoReg: 0
@@ -454,7 +463,7 @@ IF.nop: True
 IF.PC: 0
 IF.PCSrc: 0
 IF.PCWrite: 1
-IF.Flush: False
+IF.Flush: 0
 ID.nop: True
 ID.PC: 0
 ID.Instr: 0
@@ -472,6 +481,7 @@ EX.Rd: 0
 EX.funct7: 
 EX.funct3: 
 EX.opcode: 
+EX.ALUoutput: 0
 EX.Branch: 0
 EX.MemRead: 0
 EX.MemtoReg: 0
@@ -504,7 +514,7 @@ IF.nop: True
 IF.PC: 0
 IF.PCSrc: 0
 IF.PCWrite: 1
-IF.Flush: False
+IF.Flush: 0
 ID.nop: True
 ID.PC: 0
 ID.Instr: 0
@@ -522,6 +532,7 @@ EX.Rd: 0
 EX.funct7: 
 EX.funct3: 
 EX.opcode: 
+EX.ALUoutput: 0
 EX.Branch: 0
 EX.MemRead: 0
 EX.MemtoReg: 0
