@@ -1,13 +1,13 @@
 ------------------------------------------------------------
 State after executing cycle: 0
 IF.nop: False
-IF.PC: 0
+IF.PC: 4
 IF.PCSrc: 0
 IF.PCWrite: 1
 IF.Flush: 0
-ID.nop: True
+ID.nop: False
 ID.PC: 0
-ID.Instr: 0
+ID.Instr: 00000000010000000000000100000011
 ID.Rs1: 0
 ID.Rs2: 0
 ID.Rd: 0
@@ -52,35 +52,35 @@ WB.MemtoReg: 0
 ------------------------------------------------------------
 State after executing cycle: 1
 IF.nop: False
-IF.PC: 4
+IF.PC: 8
 IF.PCSrc: 0
-IF.PCWrite: True
+IF.PCWrite: 1
 IF.Flush: 0
 ID.nop: False
-ID.PC: 0
-ID.Instr: 00000000010000000000000100000011
+ID.PC: 4
+ID.Instr: 00000000100000000000000110000011
 ID.Rs1: 0
-ID.Rs2: 4
-ID.Rd: 2
-EX.nop: True
-EX.Ins: 
-EX.Read_data1: 0
-EX.Read_data2: 0
-EX.Imm: 0
+ID.Rs2: 0
+ID.Rd: 0
+EX.nop: False
+EX.Ins: LW
+EX.Read_data1: 00000000000000000000000000000000
+EX.Read_data2: 00000000000000000000000000000000
+EX.Imm: 00000000000000000000000000000100
 EX.Rs1: 0
-EX.Rs2: 0
-EX.Rd: 0
-EX.funct7: 
-EX.funct3: 
-EX.opcode: 
+EX.Rs2: 4
+EX.Rd: 2
+EX.funct7: 0000000
+EX.funct3: 000
+EX.opcode: 0000011
 EX.ALUoutput: 0
 EX.Branch: 0
-EX.MemRead: 0
-EX.MemtoReg: 0
-EX.ALUOp: 0
+EX.MemRead: 1
+EX.MemtoReg: 1
+EX.ALUOp: 2
 EX.MemWrite: 0
-EX.ALUSrc: 0
-EX.RegWrite: 0
+EX.ALUSrc: 1
+EX.RegWrite: 1
 MEM.nop: True
 MEM.ALUoutput: 0
 MEM.Read_data2: 0
@@ -103,67 +103,16 @@ WB.MemtoReg: 0
 ------------------------------------------------------------
 State after executing cycle: 2
 IF.nop: False
-IF.PC: 8
-IF.PCSrc: 0
-IF.PCWrite: True
-IF.Flush: 0
-ID.nop: False
-ID.PC: 4
-ID.Instr: 00000000100000000000000110000011
-ID.Rs1: 0
-ID.Rs2: 8
-ID.Rd: 3
-EX.nop: False
-EX.Ins: LW
-EX.Read_data1: 00000000000000000000000000000000
-EX.Read_data2: 00000000000000000000000000000000
-EX.Imm: 00000000000000000000000000000100
-EX.Rs1: 0
-EX.Rs2: 4
-EX.Rd: 2
-EX.funct7: 0000000
-EX.funct3: 000
-EX.opcode: 0000011
-EX.ALUoutput: 00000000000000000000000000000100
-EX.Branch: 0
-EX.MemRead: 1
-EX.MemtoReg: 1
-EX.ALUOp: 2
-EX.MemWrite: 0
-EX.ALUSrc: 1
-EX.RegWrite: 1
-MEM.nop: True
-MEM.ALUoutput: 0
-MEM.Read_data2: 0
-MEM.Load_data: 0
-MEM.Rs1: 0
-MEM.Rs2: 0
-MEM.Rd: 0
-MEM.MemtoReg: 0
-MEM.MemRead: 0
-MEM.MemWrite: 0
-MEM.RegWrite: 0
-WB.nop: True
-WB.ALUoutput: 0
-WB.Write_data: 0
-WB.Rs1: 0
-WB.Rs2: 0
-WB.Rd: 0
-WB.RegWrite: 0
-WB.MemtoReg: 0
-------------------------------------------------------------
-State after executing cycle: 3
-IF.nop: False
 IF.PC: 12
 IF.PCSrc: 0
-IF.PCWrite: True
+IF.PCWrite: 1
 IF.Flush: 0
 ID.nop: False
 ID.PC: 8
 ID.Instr: 00000000000100100000001000010011
-ID.Rs1: 4
-ID.Rs2: 1
-ID.Rd: 4
+ID.Rs1: 0
+ID.Rs2: 0
+ID.Rd: 0
 EX.nop: False
 EX.Ins: LW
 EX.Read_data1: 00000000000000000000000000000000
@@ -175,7 +124,7 @@ EX.Rd: 3
 EX.funct7: 0000000
 EX.funct3: 000
 EX.opcode: 0000011
-EX.ALUoutput: 00000000000000000000000000001000
+EX.ALUoutput: 0
 EX.Branch: 0
 EX.MemRead: 1
 EX.MemtoReg: 1
@@ -186,7 +135,7 @@ EX.RegWrite: 1
 MEM.nop: False
 MEM.ALUoutput: 00000000000000000000000000000100
 MEM.Read_data2: 00000000000000000000000000000000
-MEM.Load_data: 00000000000000000000000000000101
+MEM.Load_data: 0
 MEM.Rs1: 0
 MEM.Rs2: 4
 MEM.Rd: 2
@@ -203,18 +152,18 @@ WB.Rd: 0
 WB.RegWrite: 0
 WB.MemtoReg: 0
 ------------------------------------------------------------
-State after executing cycle: 4
+State after executing cycle: 3
 IF.nop: False
 IF.PC: 16
 IF.PCSrc: 0
-IF.PCWrite: True
+IF.PCWrite: 1
 IF.Flush: 0
 ID.nop: False
 ID.PC: 12
 ID.Instr: 00000000010100100000001010110011
-ID.Rs1: 4
-ID.Rs2: 5
-ID.Rd: 5
+ID.Rs1: 0
+ID.Rs2: 0
+ID.Rd: 0
 EX.nop: False
 EX.Ins: ADDI
 EX.Read_data1: 00000000000000000000000000000000
@@ -226,7 +175,7 @@ EX.Rd: 4
 EX.funct7: 0000000
 EX.funct3: 000
 EX.opcode: 0010011
-EX.ALUoutput: 00000000000000000000000000000001
+EX.ALUoutput: 0
 EX.Branch: 0
 EX.MemRead: 0
 EX.MemtoReg: 0
@@ -237,7 +186,7 @@ EX.RegWrite: 1
 MEM.nop: False
 MEM.ALUoutput: 00000000000000000000000000001000
 MEM.Read_data2: 00000000000000000000000000000000
-MEM.Load_data: 00000000000000000000000000001010
+MEM.Load_data: 0
 MEM.Rs1: 0
 MEM.Rs2: 8
 MEM.Rd: 3
@@ -254,18 +203,18 @@ WB.Rd: 2
 WB.RegWrite: 1
 WB.MemtoReg: 1
 ------------------------------------------------------------
-State after executing cycle: 5
+State after executing cycle: 4
 IF.nop: False
 IF.PC: 20
-IF.PCSrc: True
-IF.PCWrite: True
+IF.PCSrc: 0
+IF.PCWrite: 1
 IF.Flush: 0
 ID.nop: False
 ID.PC: 16
 ID.Instr: 00000000010100011001010001100011
-ID.Rs1: 3
-ID.Rs2: 5
-ID.Rd: 8
+ID.Rs1: 0
+ID.Rs2: 0
+ID.Rd: 0
 EX.nop: False
 EX.Ins: ADD
 EX.Read_data1: 00000000000000000000000000000000
@@ -277,7 +226,7 @@ EX.Rd: 5
 EX.funct7: 0000000
 EX.funct3: 000
 EX.opcode: 0110011
-EX.ALUoutput: 00000000000000000000000000000001
+EX.ALUoutput: 0
 EX.Branch: 0
 EX.MemRead: 0
 EX.MemtoReg: 0
@@ -305,7 +254,7 @@ WB.Rd: 3
 WB.RegWrite: 1
 WB.MemtoReg: 1
 ------------------------------------------------------------
-State after executing cycle: 6
+State after executing cycle: 5
 IF.nop: False
 IF.PC: 24
 IF.PCSrc: 0
@@ -317,22 +266,22 @@ ID.Instr: 00000000110000000000010101101111
 ID.Rs1: 0
 ID.Rs2: 0
 ID.Rd: 0
-EX.nop: False
-EX.Ins: BNE
-EX.Read_data1: 00000000000000000000000000001010
-EX.Read_data2: 00000000000000000000000000000000
-EX.Imm: 00000000000000000000000000001000
-EX.Rs1: 3
-EX.Rs2: 5
-EX.Rd: 8
-EX.funct7: 0000000
-EX.funct3: 001
-EX.opcode: 1100011
-EX.ALUoutput: 00000000000000000000000000001001
-EX.Branch: 1
+EX.nop: True
+EX.Ins: 
+EX.Read_data1: 0
+EX.Read_data2: 0
+EX.Imm: 0
+EX.Rs1: 0
+EX.Rs2: 0
+EX.Rd: 0
+EX.funct7: 
+EX.funct3: 
+EX.opcode: 
+EX.ALUoutput: 0
+EX.Branch: 0
 EX.MemRead: 0
 EX.MemtoReg: 0
-EX.ALUOp: 1
+EX.ALUOp: 0
 EX.MemWrite: 0
 EX.ALUSrc: 0
 EX.RegWrite: 0
@@ -356,18 +305,18 @@ WB.Rd: 4
 WB.RegWrite: 1
 WB.MemtoReg: 0
 ------------------------------------------------------------
-State after executing cycle: 7
+State after executing cycle: 6
 IF.nop: False
 IF.PC: 28
-IF.PCSrc: True
-IF.PCWrite: True
+IF.PCSrc: 0
+IF.PCWrite: 1
 IF.Flush: 0
 ID.nop: False
 ID.PC: 24
 ID.Instr: 11111110010000010001100011100011
-ID.Rs1: 2
-ID.Rs2: 4
-ID.Rd: 17
+ID.Rs1: 0
+ID.Rs2: 0
+ID.Rd: 0
 EX.nop: True
 EX.Ins: 
 EX.Read_data1: 0
@@ -384,57 +333,6 @@ EX.Branch: 0
 EX.MemRead: 0
 EX.MemtoReg: 0
 EX.ALUOp: 0
-EX.MemWrite: 0
-EX.ALUSrc: 0
-EX.RegWrite: 0
-MEM.nop: False
-MEM.ALUoutput: 00000000000000000000000000001001
-MEM.Read_data2: 00000000000000000000000000000001
-MEM.Load_data: 0
-MEM.Rs1: 3
-MEM.Rs2: 5
-MEM.Rd: 8
-MEM.MemtoReg: 0
-MEM.MemRead: 0
-MEM.MemWrite: 0
-MEM.RegWrite: 0
-WB.nop: False
-WB.ALUoutput: 00000000000000000000000000000001
-WB.Write_data: 0
-WB.Rs1: 4
-WB.Rs2: 5
-WB.Rd: 5
-WB.RegWrite: 1
-WB.MemtoReg: 0
-------------------------------------------------------------
-State after executing cycle: 8
-IF.nop: False
-IF.PC: 8
-IF.PCSrc: 0
-IF.PCWrite: 1
-IF.Flush: 1
-ID.nop: False
-ID.PC: 28
-ID.Instr: 11111111111111111111111111111111
-ID.Rs1: 0
-ID.Rs2: 0
-ID.Rd: 0
-EX.nop: False
-EX.Ins: BNE
-EX.Read_data1: 00000000000000000000000000000101
-EX.Read_data2: 00000000000000000000000000000001
-EX.Imm: 11111111111111111111111111110000
-EX.Rs1: 2
-EX.Rs2: 4
-EX.Rd: 17
-EX.funct7: 1111111
-EX.funct3: 001
-EX.opcode: 1100011
-EX.ALUoutput: 00000000000000000000000000000100
-EX.Branch: 1
-EX.MemRead: 0
-EX.MemtoReg: 0
-EX.ALUOp: 1
 EX.MemWrite: 0
 EX.ALUSrc: 0
 EX.RegWrite: 0
@@ -450,26 +348,26 @@ MEM.MemRead: 0
 MEM.MemWrite: 0
 MEM.RegWrite: 0
 WB.nop: False
-WB.ALUoutput: 00000000000000000000000000001001
+WB.ALUoutput: 00000000000000000000000000000001
 WB.Write_data: 0
-WB.Rs1: 3
+WB.Rs1: 4
 WB.Rs2: 5
-WB.Rd: 8
-WB.RegWrite: 0
+WB.Rd: 5
+WB.RegWrite: 1
 WB.MemtoReg: 0
 ------------------------------------------------------------
-State after executing cycle: 9
+State after executing cycle: 7
 IF.nop: False
-IF.PC: 12
+IF.PC: 8
 IF.PCSrc: 0
-IF.PCWrite: True
-IF.Flush: 0
+IF.PCWrite: 1
+IF.Flush: 1
 ID.nop: False
-ID.PC: 8
-ID.Instr: 00000000000100100000001000010011
-ID.Rs1: 4
-ID.Rs2: 1
-ID.Rd: 4
+ID.PC: 28
+ID.Instr: 11111111111111111111111111111111
+ID.Rs1: 0
+ID.Rs2: 0
+ID.Rd: 0
 EX.nop: True
 EX.Ins: 
 EX.Read_data1: 0
@@ -489,13 +387,13 @@ EX.ALUOp: 0
 EX.MemWrite: 0
 EX.ALUSrc: 0
 EX.RegWrite: 0
-MEM.nop: False
-MEM.ALUoutput: 00000000000000000000000000000100
-MEM.Read_data2: 00000000000000000000000000000001
+MEM.nop: True
+MEM.ALUoutput: 0
+MEM.Read_data2: 0
 MEM.Load_data: 0
-MEM.Rs1: 2
-MEM.Rs2: 4
-MEM.Rd: 17
+MEM.Rs1: 0
+MEM.Rs2: 0
+MEM.Rd: 0
 MEM.MemtoReg: 0
 MEM.MemRead: 0
 MEM.MemWrite: 0
@@ -509,18 +407,69 @@ WB.Rd: 0
 WB.RegWrite: 0
 WB.MemtoReg: 0
 ------------------------------------------------------------
-State after executing cycle: 10
+State after executing cycle: 8
+IF.nop: False
+IF.PC: 12
+IF.PCSrc: 0
+IF.PCWrite: 1
+IF.Flush: 0
+ID.nop: False
+ID.PC: 8
+ID.Instr: 00000000000100100000001000010011
+ID.Rs1: 0
+ID.Rs2: 0
+ID.Rd: 0
+EX.nop: True
+EX.Ins: 
+EX.Read_data1: 0
+EX.Read_data2: 0
+EX.Imm: 0
+EX.Rs1: 0
+EX.Rs2: 0
+EX.Rd: 0
+EX.funct7: 
+EX.funct3: 
+EX.opcode: 
+EX.ALUoutput: 0
+EX.Branch: 0
+EX.MemRead: 0
+EX.MemtoReg: 0
+EX.ALUOp: 0
+EX.MemWrite: 0
+EX.ALUSrc: 0
+EX.RegWrite: 0
+MEM.nop: True
+MEM.ALUoutput: 0
+MEM.Read_data2: 0
+MEM.Load_data: 0
+MEM.Rs1: 0
+MEM.Rs2: 0
+MEM.Rd: 0
+MEM.MemtoReg: 0
+MEM.MemRead: 0
+MEM.MemWrite: 0
+MEM.RegWrite: 0
+WB.nop: True
+WB.ALUoutput: 0
+WB.Write_data: 0
+WB.Rs1: 0
+WB.Rs2: 0
+WB.Rd: 0
+WB.RegWrite: 0
+WB.MemtoReg: 0
+------------------------------------------------------------
+State after executing cycle: 9
 IF.nop: False
 IF.PC: 16
 IF.PCSrc: 0
-IF.PCWrite: True
+IF.PCWrite: 1
 IF.Flush: 0
 ID.nop: False
 ID.PC: 12
 ID.Instr: 00000000010100100000001010110011
-ID.Rs1: 4
-ID.Rs2: 5
-ID.Rd: 5
+ID.Rs1: 0
+ID.Rs2: 0
+ID.Rd: 0
 EX.nop: False
 EX.Ins: ADDI
 EX.Read_data1: 00000000000000000000000000000001
@@ -532,7 +481,7 @@ EX.Rd: 4
 EX.funct7: 0000000
 EX.funct3: 000
 EX.opcode: 0010011
-EX.ALUoutput: 00000000000000000000000000000010
+EX.ALUoutput: 0
 EX.Branch: 0
 EX.MemRead: 0
 EX.MemtoReg: 0
@@ -551,27 +500,27 @@ MEM.MemtoReg: 0
 MEM.MemRead: 0
 MEM.MemWrite: 0
 MEM.RegWrite: 0
-WB.nop: False
-WB.ALUoutput: 00000000000000000000000000000100
+WB.nop: True
+WB.ALUoutput: 0
 WB.Write_data: 0
-WB.Rs1: 2
-WB.Rs2: 4
-WB.Rd: 17
+WB.Rs1: 0
+WB.Rs2: 0
+WB.Rd: 0
 WB.RegWrite: 0
 WB.MemtoReg: 0
 ------------------------------------------------------------
-State after executing cycle: 11
+State after executing cycle: 10
 IF.nop: False
 IF.PC: 20
-IF.PCSrc: True
-IF.PCWrite: True
+IF.PCSrc: 0
+IF.PCWrite: 1
 IF.Flush: 0
 ID.nop: False
 ID.PC: 16
 ID.Instr: 00000000010100011001010001100011
-ID.Rs1: 3
-ID.Rs2: 5
-ID.Rd: 8
+ID.Rs1: 0
+ID.Rs2: 0
+ID.Rd: 0
 EX.nop: False
 EX.Ins: ADD
 EX.Read_data1: 00000000000000000000000000000001
@@ -583,7 +532,7 @@ EX.Rd: 5
 EX.funct7: 0000000
 EX.funct3: 000
 EX.opcode: 0110011
-EX.ALUoutput: 00000000000000000000000000000011
+EX.ALUoutput: 0
 EX.Branch: 0
 EX.MemRead: 0
 EX.MemtoReg: 0
@@ -611,7 +560,7 @@ WB.Rd: 0
 WB.RegWrite: 0
 WB.MemtoReg: 0
 ------------------------------------------------------------
-State after executing cycle: 12
+State after executing cycle: 11
 IF.nop: False
 IF.PC: 24
 IF.PCSrc: 0
@@ -623,22 +572,22 @@ ID.Instr: 00000000110000000000010101101111
 ID.Rs1: 0
 ID.Rs2: 0
 ID.Rd: 0
-EX.nop: False
-EX.Ins: BNE
-EX.Read_data1: 00000000000000000000000000001010
-EX.Read_data2: 00000000000000000000000000000001
-EX.Imm: 00000000000000000000000000001000
-EX.Rs1: 3
-EX.Rs2: 5
-EX.Rd: 8
-EX.funct7: 0000000
-EX.funct3: 001
-EX.opcode: 1100011
-EX.ALUoutput: 00000000000000000000000000000111
-EX.Branch: 1
+EX.nop: True
+EX.Ins: 
+EX.Read_data1: 0
+EX.Read_data2: 0
+EX.Imm: 0
+EX.Rs1: 0
+EX.Rs2: 0
+EX.Rd: 0
+EX.funct7: 
+EX.funct3: 
+EX.opcode: 
+EX.ALUoutput: 0
+EX.Branch: 0
 EX.MemRead: 0
 EX.MemtoReg: 0
-EX.ALUOp: 1
+EX.ALUOp: 0
 EX.MemWrite: 0
 EX.ALUSrc: 0
 EX.RegWrite: 0
@@ -662,18 +611,18 @@ WB.Rd: 4
 WB.RegWrite: 1
 WB.MemtoReg: 0
 ------------------------------------------------------------
-State after executing cycle: 13
+State after executing cycle: 12
 IF.nop: False
 IF.PC: 28
-IF.PCSrc: True
-IF.PCWrite: True
+IF.PCSrc: 0
+IF.PCWrite: 1
 IF.Flush: 0
 ID.nop: False
 ID.PC: 24
 ID.Instr: 11111110010000010001100011100011
-ID.Rs1: 2
-ID.Rs2: 4
-ID.Rd: 17
+ID.Rs1: 0
+ID.Rs2: 0
+ID.Rd: 0
 EX.nop: True
 EX.Ins: 
 EX.Read_data1: 0
@@ -690,57 +639,6 @@ EX.Branch: 0
 EX.MemRead: 0
 EX.MemtoReg: 0
 EX.ALUOp: 0
-EX.MemWrite: 0
-EX.ALUSrc: 0
-EX.RegWrite: 0
-MEM.nop: False
-MEM.ALUoutput: 00000000000000000000000000000111
-MEM.Read_data2: 00000000000000000000000000000011
-MEM.Load_data: 0
-MEM.Rs1: 3
-MEM.Rs2: 5
-MEM.Rd: 8
-MEM.MemtoReg: 0
-MEM.MemRead: 0
-MEM.MemWrite: 0
-MEM.RegWrite: 0
-WB.nop: False
-WB.ALUoutput: 00000000000000000000000000000011
-WB.Write_data: 0
-WB.Rs1: 4
-WB.Rs2: 5
-WB.Rd: 5
-WB.RegWrite: 1
-WB.MemtoReg: 0
-------------------------------------------------------------
-State after executing cycle: 14
-IF.nop: False
-IF.PC: 8
-IF.PCSrc: 0
-IF.PCWrite: 1
-IF.Flush: 1
-ID.nop: False
-ID.PC: 28
-ID.Instr: 11111111111111111111111111111111
-ID.Rs1: 0
-ID.Rs2: 0
-ID.Rd: 0
-EX.nop: False
-EX.Ins: BNE
-EX.Read_data1: 00000000000000000000000000000101
-EX.Read_data2: 00000000000000000000000000000010
-EX.Imm: 11111111111111111111111111110000
-EX.Rs1: 2
-EX.Rs2: 4
-EX.Rd: 17
-EX.funct7: 1111111
-EX.funct3: 001
-EX.opcode: 1100011
-EX.ALUoutput: 00000000000000000000000000000011
-EX.Branch: 1
-EX.MemRead: 0
-EX.MemtoReg: 0
-EX.ALUOp: 1
 EX.MemWrite: 0
 EX.ALUSrc: 0
 EX.RegWrite: 0
@@ -756,26 +654,26 @@ MEM.MemRead: 0
 MEM.MemWrite: 0
 MEM.RegWrite: 0
 WB.nop: False
-WB.ALUoutput: 00000000000000000000000000000111
+WB.ALUoutput: 00000000000000000000000000000011
 WB.Write_data: 0
-WB.Rs1: 3
+WB.Rs1: 4
 WB.Rs2: 5
-WB.Rd: 8
-WB.RegWrite: 0
+WB.Rd: 5
+WB.RegWrite: 1
 WB.MemtoReg: 0
 ------------------------------------------------------------
-State after executing cycle: 15
+State after executing cycle: 13
 IF.nop: False
-IF.PC: 12
+IF.PC: 8
 IF.PCSrc: 0
-IF.PCWrite: True
-IF.Flush: 0
+IF.PCWrite: 1
+IF.Flush: 1
 ID.nop: False
-ID.PC: 8
-ID.Instr: 00000000000100100000001000010011
-ID.Rs1: 4
-ID.Rs2: 1
-ID.Rd: 4
+ID.PC: 28
+ID.Instr: 11111111111111111111111111111111
+ID.Rs1: 0
+ID.Rs2: 0
+ID.Rd: 0
 EX.nop: True
 EX.Ins: 
 EX.Read_data1: 0
@@ -795,13 +693,13 @@ EX.ALUOp: 0
 EX.MemWrite: 0
 EX.ALUSrc: 0
 EX.RegWrite: 0
-MEM.nop: False
-MEM.ALUoutput: 00000000000000000000000000000011
-MEM.Read_data2: 00000000000000000000000000000010
+MEM.nop: True
+MEM.ALUoutput: 0
+MEM.Read_data2: 0
 MEM.Load_data: 0
-MEM.Rs1: 2
-MEM.Rs2: 4
-MEM.Rd: 17
+MEM.Rs1: 0
+MEM.Rs2: 0
+MEM.Rd: 0
 MEM.MemtoReg: 0
 MEM.MemRead: 0
 MEM.MemWrite: 0
@@ -815,18 +713,69 @@ WB.Rd: 0
 WB.RegWrite: 0
 WB.MemtoReg: 0
 ------------------------------------------------------------
-State after executing cycle: 16
+State after executing cycle: 14
+IF.nop: False
+IF.PC: 12
+IF.PCSrc: 0
+IF.PCWrite: 1
+IF.Flush: 0
+ID.nop: False
+ID.PC: 8
+ID.Instr: 00000000000100100000001000010011
+ID.Rs1: 0
+ID.Rs2: 0
+ID.Rd: 0
+EX.nop: True
+EX.Ins: 
+EX.Read_data1: 0
+EX.Read_data2: 0
+EX.Imm: 0
+EX.Rs1: 0
+EX.Rs2: 0
+EX.Rd: 0
+EX.funct7: 
+EX.funct3: 
+EX.opcode: 
+EX.ALUoutput: 0
+EX.Branch: 0
+EX.MemRead: 0
+EX.MemtoReg: 0
+EX.ALUOp: 0
+EX.MemWrite: 0
+EX.ALUSrc: 0
+EX.RegWrite: 0
+MEM.nop: True
+MEM.ALUoutput: 0
+MEM.Read_data2: 0
+MEM.Load_data: 0
+MEM.Rs1: 0
+MEM.Rs2: 0
+MEM.Rd: 0
+MEM.MemtoReg: 0
+MEM.MemRead: 0
+MEM.MemWrite: 0
+MEM.RegWrite: 0
+WB.nop: True
+WB.ALUoutput: 0
+WB.Write_data: 0
+WB.Rs1: 0
+WB.Rs2: 0
+WB.Rd: 0
+WB.RegWrite: 0
+WB.MemtoReg: 0
+------------------------------------------------------------
+State after executing cycle: 15
 IF.nop: False
 IF.PC: 16
 IF.PCSrc: 0
-IF.PCWrite: True
+IF.PCWrite: 1
 IF.Flush: 0
 ID.nop: False
 ID.PC: 12
 ID.Instr: 00000000010100100000001010110011
-ID.Rs1: 4
-ID.Rs2: 5
-ID.Rd: 5
+ID.Rs1: 0
+ID.Rs2: 0
+ID.Rd: 0
 EX.nop: False
 EX.Ins: ADDI
 EX.Read_data1: 00000000000000000000000000000010
@@ -838,7 +787,7 @@ EX.Rd: 4
 EX.funct7: 0000000
 EX.funct3: 000
 EX.opcode: 0010011
-EX.ALUoutput: 00000000000000000000000000000011
+EX.ALUoutput: 0
 EX.Branch: 0
 EX.MemRead: 0
 EX.MemtoReg: 0
@@ -857,27 +806,27 @@ MEM.MemtoReg: 0
 MEM.MemRead: 0
 MEM.MemWrite: 0
 MEM.RegWrite: 0
-WB.nop: False
-WB.ALUoutput: 00000000000000000000000000000011
+WB.nop: True
+WB.ALUoutput: 0
 WB.Write_data: 0
-WB.Rs1: 2
-WB.Rs2: 4
-WB.Rd: 17
+WB.Rs1: 0
+WB.Rs2: 0
+WB.Rd: 0
 WB.RegWrite: 0
 WB.MemtoReg: 0
 ------------------------------------------------------------
-State after executing cycle: 17
+State after executing cycle: 16
 IF.nop: False
 IF.PC: 20
-IF.PCSrc: True
-IF.PCWrite: True
+IF.PCSrc: 0
+IF.PCWrite: 1
 IF.Flush: 0
 ID.nop: False
 ID.PC: 16
 ID.Instr: 00000000010100011001010001100011
-ID.Rs1: 3
-ID.Rs2: 5
-ID.Rd: 8
+ID.Rs1: 0
+ID.Rs2: 0
+ID.Rd: 0
 EX.nop: False
 EX.Ins: ADD
 EX.Read_data1: 00000000000000000000000000000010
@@ -889,7 +838,7 @@ EX.Rd: 5
 EX.funct7: 0000000
 EX.funct3: 000
 EX.opcode: 0110011
-EX.ALUoutput: 00000000000000000000000000000110
+EX.ALUoutput: 0
 EX.Branch: 0
 EX.MemRead: 0
 EX.MemtoReg: 0
@@ -917,7 +866,7 @@ WB.Rd: 0
 WB.RegWrite: 0
 WB.MemtoReg: 0
 ------------------------------------------------------------
-State after executing cycle: 18
+State after executing cycle: 17
 IF.nop: False
 IF.PC: 24
 IF.PCSrc: 0
@@ -929,22 +878,22 @@ ID.Instr: 00000000110000000000010101101111
 ID.Rs1: 0
 ID.Rs2: 0
 ID.Rd: 0
-EX.nop: False
-EX.Ins: BNE
-EX.Read_data1: 00000000000000000000000000001010
-EX.Read_data2: 00000000000000000000000000000011
-EX.Imm: 00000000000000000000000000001000
-EX.Rs1: 3
-EX.Rs2: 5
-EX.Rd: 8
-EX.funct7: 0000000
-EX.funct3: 001
-EX.opcode: 1100011
-EX.ALUoutput: 00000000000000000000000000000100
-EX.Branch: 1
+EX.nop: True
+EX.Ins: 
+EX.Read_data1: 0
+EX.Read_data2: 0
+EX.Imm: 0
+EX.Rs1: 0
+EX.Rs2: 0
+EX.Rd: 0
+EX.funct7: 
+EX.funct3: 
+EX.opcode: 
+EX.ALUoutput: 0
+EX.Branch: 0
 EX.MemRead: 0
 EX.MemtoReg: 0
-EX.ALUOp: 1
+EX.ALUOp: 0
 EX.MemWrite: 0
 EX.ALUSrc: 0
 EX.RegWrite: 0
@@ -968,18 +917,18 @@ WB.Rd: 4
 WB.RegWrite: 1
 WB.MemtoReg: 0
 ------------------------------------------------------------
-State after executing cycle: 19
+State after executing cycle: 18
 IF.nop: False
 IF.PC: 28
-IF.PCSrc: True
-IF.PCWrite: True
+IF.PCSrc: 0
+IF.PCWrite: 1
 IF.Flush: 0
 ID.nop: False
 ID.PC: 24
 ID.Instr: 11111110010000010001100011100011
-ID.Rs1: 2
-ID.Rs2: 4
-ID.Rd: 17
+ID.Rs1: 0
+ID.Rs2: 0
+ID.Rd: 0
 EX.nop: True
 EX.Ins: 
 EX.Read_data1: 0
@@ -996,57 +945,6 @@ EX.Branch: 0
 EX.MemRead: 0
 EX.MemtoReg: 0
 EX.ALUOp: 0
-EX.MemWrite: 0
-EX.ALUSrc: 0
-EX.RegWrite: 0
-MEM.nop: False
-MEM.ALUoutput: 00000000000000000000000000000100
-MEM.Read_data2: 00000000000000000000000000000110
-MEM.Load_data: 0
-MEM.Rs1: 3
-MEM.Rs2: 5
-MEM.Rd: 8
-MEM.MemtoReg: 0
-MEM.MemRead: 0
-MEM.MemWrite: 0
-MEM.RegWrite: 0
-WB.nop: False
-WB.ALUoutput: 00000000000000000000000000000110
-WB.Write_data: 0
-WB.Rs1: 4
-WB.Rs2: 5
-WB.Rd: 5
-WB.RegWrite: 1
-WB.MemtoReg: 0
-------------------------------------------------------------
-State after executing cycle: 20
-IF.nop: False
-IF.PC: 8
-IF.PCSrc: 0
-IF.PCWrite: 1
-IF.Flush: 1
-ID.nop: False
-ID.PC: 28
-ID.Instr: 11111111111111111111111111111111
-ID.Rs1: 0
-ID.Rs2: 0
-ID.Rd: 0
-EX.nop: False
-EX.Ins: BNE
-EX.Read_data1: 00000000000000000000000000000101
-EX.Read_data2: 00000000000000000000000000000011
-EX.Imm: 11111111111111111111111111110000
-EX.Rs1: 2
-EX.Rs2: 4
-EX.Rd: 17
-EX.funct7: 1111111
-EX.funct3: 001
-EX.opcode: 1100011
-EX.ALUoutput: 00000000000000000000000000000010
-EX.Branch: 1
-EX.MemRead: 0
-EX.MemtoReg: 0
-EX.ALUOp: 1
 EX.MemWrite: 0
 EX.ALUSrc: 0
 EX.RegWrite: 0
@@ -1062,26 +960,26 @@ MEM.MemRead: 0
 MEM.MemWrite: 0
 MEM.RegWrite: 0
 WB.nop: False
-WB.ALUoutput: 00000000000000000000000000000100
+WB.ALUoutput: 00000000000000000000000000000110
 WB.Write_data: 0
-WB.Rs1: 3
+WB.Rs1: 4
 WB.Rs2: 5
-WB.Rd: 8
-WB.RegWrite: 0
+WB.Rd: 5
+WB.RegWrite: 1
 WB.MemtoReg: 0
 ------------------------------------------------------------
-State after executing cycle: 21
+State after executing cycle: 19
 IF.nop: False
-IF.PC: 12
+IF.PC: 8
 IF.PCSrc: 0
-IF.PCWrite: True
-IF.Flush: 0
+IF.PCWrite: 1
+IF.Flush: 1
 ID.nop: False
-ID.PC: 8
-ID.Instr: 00000000000100100000001000010011
-ID.Rs1: 4
-ID.Rs2: 1
-ID.Rd: 4
+ID.PC: 28
+ID.Instr: 11111111111111111111111111111111
+ID.Rs1: 0
+ID.Rs2: 0
+ID.Rd: 0
 EX.nop: True
 EX.Ins: 
 EX.Read_data1: 0
@@ -1101,13 +999,13 @@ EX.ALUOp: 0
 EX.MemWrite: 0
 EX.ALUSrc: 0
 EX.RegWrite: 0
-MEM.nop: False
-MEM.ALUoutput: 00000000000000000000000000000010
-MEM.Read_data2: 00000000000000000000000000000011
+MEM.nop: True
+MEM.ALUoutput: 0
+MEM.Read_data2: 0
 MEM.Load_data: 0
-MEM.Rs1: 2
-MEM.Rs2: 4
-MEM.Rd: 17
+MEM.Rs1: 0
+MEM.Rs2: 0
+MEM.Rd: 0
 MEM.MemtoReg: 0
 MEM.MemRead: 0
 MEM.MemWrite: 0
@@ -1121,18 +1019,69 @@ WB.Rd: 0
 WB.RegWrite: 0
 WB.MemtoReg: 0
 ------------------------------------------------------------
-State after executing cycle: 22
+State after executing cycle: 20
+IF.nop: False
+IF.PC: 12
+IF.PCSrc: 0
+IF.PCWrite: 1
+IF.Flush: 0
+ID.nop: False
+ID.PC: 8
+ID.Instr: 00000000000100100000001000010011
+ID.Rs1: 0
+ID.Rs2: 0
+ID.Rd: 0
+EX.nop: True
+EX.Ins: 
+EX.Read_data1: 0
+EX.Read_data2: 0
+EX.Imm: 0
+EX.Rs1: 0
+EX.Rs2: 0
+EX.Rd: 0
+EX.funct7: 
+EX.funct3: 
+EX.opcode: 
+EX.ALUoutput: 0
+EX.Branch: 0
+EX.MemRead: 0
+EX.MemtoReg: 0
+EX.ALUOp: 0
+EX.MemWrite: 0
+EX.ALUSrc: 0
+EX.RegWrite: 0
+MEM.nop: True
+MEM.ALUoutput: 0
+MEM.Read_data2: 0
+MEM.Load_data: 0
+MEM.Rs1: 0
+MEM.Rs2: 0
+MEM.Rd: 0
+MEM.MemtoReg: 0
+MEM.MemRead: 0
+MEM.MemWrite: 0
+MEM.RegWrite: 0
+WB.nop: True
+WB.ALUoutput: 0
+WB.Write_data: 0
+WB.Rs1: 0
+WB.Rs2: 0
+WB.Rd: 0
+WB.RegWrite: 0
+WB.MemtoReg: 0
+------------------------------------------------------------
+State after executing cycle: 21
 IF.nop: False
 IF.PC: 16
 IF.PCSrc: 0
-IF.PCWrite: True
+IF.PCWrite: 1
 IF.Flush: 0
 ID.nop: False
 ID.PC: 12
 ID.Instr: 00000000010100100000001010110011
-ID.Rs1: 4
-ID.Rs2: 5
-ID.Rd: 5
+ID.Rs1: 0
+ID.Rs2: 0
+ID.Rd: 0
 EX.nop: False
 EX.Ins: ADDI
 EX.Read_data1: 00000000000000000000000000000011
@@ -1144,7 +1093,7 @@ EX.Rd: 4
 EX.funct7: 0000000
 EX.funct3: 000
 EX.opcode: 0010011
-EX.ALUoutput: 00000000000000000000000000000100
+EX.ALUoutput: 0
 EX.Branch: 0
 EX.MemRead: 0
 EX.MemtoReg: 0
@@ -1163,27 +1112,27 @@ MEM.MemtoReg: 0
 MEM.MemRead: 0
 MEM.MemWrite: 0
 MEM.RegWrite: 0
-WB.nop: False
-WB.ALUoutput: 00000000000000000000000000000010
+WB.nop: True
+WB.ALUoutput: 0
 WB.Write_data: 0
-WB.Rs1: 2
-WB.Rs2: 4
-WB.Rd: 17
+WB.Rs1: 0
+WB.Rs2: 0
+WB.Rd: 0
 WB.RegWrite: 0
 WB.MemtoReg: 0
 ------------------------------------------------------------
-State after executing cycle: 23
+State after executing cycle: 22
 IF.nop: False
 IF.PC: 20
-IF.PCSrc: False
-IF.PCWrite: True
+IF.PCSrc: 0
+IF.PCWrite: 1
 IF.Flush: 0
 ID.nop: False
 ID.PC: 16
 ID.Instr: 00000000010100011001010001100011
-ID.Rs1: 3
-ID.Rs2: 5
-ID.Rd: 8
+ID.Rs1: 0
+ID.Rs2: 0
+ID.Rd: 0
 EX.nop: False
 EX.Ins: ADD
 EX.Read_data1: 00000000000000000000000000000011
@@ -1195,7 +1144,7 @@ EX.Rd: 5
 EX.funct7: 0000000
 EX.funct3: 000
 EX.opcode: 0110011
-EX.ALUoutput: 00000000000000000000000000001010
+EX.ALUoutput: 0
 EX.Branch: 0
 EX.MemRead: 0
 EX.MemtoReg: 0
@@ -1223,34 +1172,34 @@ WB.Rd: 0
 WB.RegWrite: 0
 WB.MemtoReg: 0
 ------------------------------------------------------------
-State after executing cycle: 24
+State after executing cycle: 23
 IF.nop: False
 IF.PC: 24
-IF.PCSrc: 1
-IF.PCWrite: True
+IF.PCSrc: 0
+IF.PCWrite: 1
 IF.Flush: 0
 ID.nop: False
 ID.PC: 20
 ID.Instr: 00000000110000000000010101101111
 ID.Rs1: 0
-ID.Rs2: 12
-ID.Rd: 10
-EX.nop: False
-EX.Ins: BNE
-EX.Read_data1: 00000000000000000000000000001010
-EX.Read_data2: 00000000000000000000000000000110
-EX.Imm: 00000000000000000000000000001000
-EX.Rs1: 3
-EX.Rs2: 5
-EX.Rd: 8
-EX.funct7: 0000000
-EX.funct3: 001
-EX.opcode: 1100011
-EX.ALUoutput: 00000000000000000000000000000000
-EX.Branch: 1
+ID.Rs2: 0
+ID.Rd: 0
+EX.nop: True
+EX.Ins: 
+EX.Read_data1: 0
+EX.Read_data2: 0
+EX.Imm: 0
+EX.Rs1: 0
+EX.Rs2: 0
+EX.Rd: 0
+EX.funct7: 
+EX.funct3: 
+EX.opcode: 
+EX.ALUoutput: 0
+EX.Branch: 0
 EX.MemRead: 0
 EX.MemtoReg: 0
-EX.ALUOp: 1
+EX.ALUOp: 0
 EX.MemWrite: 0
 EX.ALUSrc: 0
 EX.RegWrite: 0
@@ -1274,7 +1223,7 @@ WB.Rd: 4
 WB.RegWrite: 1
 WB.MemtoReg: 0
 ------------------------------------------------------------
-State after executing cycle: 25
+State after executing cycle: 24
 IF.nop: False
 IF.PC: 32
 IF.PCSrc: 0
@@ -1297,7 +1246,7 @@ EX.Rd: 10
 EX.funct7: 0000000
 EX.funct3: 000
 EX.opcode: 1101111
-EX.ALUoutput: 00000000000000000000000000011000
+EX.ALUoutput: 0
 EX.Branch: 1
 EX.MemRead: 0
 EX.MemtoReg: 0
@@ -1305,13 +1254,13 @@ EX.ALUOp: 2
 EX.MemWrite: 0
 EX.ALUSrc: 0
 EX.RegWrite: 1
-MEM.nop: False
-MEM.ALUoutput: 00000000000000000000000000000000
-MEM.Read_data2: 00000000000000000000000000001010
+MEM.nop: True
+MEM.ALUoutput: 0
+MEM.Read_data2: 0
 MEM.Load_data: 0
-MEM.Rs1: 3
-MEM.Rs2: 5
-MEM.Rd: 8
+MEM.Rs1: 0
+MEM.Rs2: 0
+MEM.Rd: 0
 MEM.MemtoReg: 0
 MEM.MemRead: 0
 MEM.MemWrite: 0
@@ -1325,18 +1274,18 @@ WB.Rd: 5
 WB.RegWrite: 1
 WB.MemtoReg: 0
 ------------------------------------------------------------
-State after executing cycle: 26
+State after executing cycle: 25
 IF.nop: False
 IF.PC: 36
 IF.PCSrc: 0
-IF.PCWrite: True
+IF.PCWrite: 1
 IF.Flush: 0
 ID.nop: False
 ID.PC: 32
 ID.Instr: 00000000010000000010100000100011
 ID.Rs1: 0
-ID.Rs2: 4
-ID.Rd: 16
+ID.Rs2: 0
+ID.Rd: 0
 EX.nop: True
 EX.Ins: 
 EX.Read_data1: 0
@@ -1367,27 +1316,27 @@ MEM.MemtoReg: 0
 MEM.MemRead: 0
 MEM.MemWrite: 0
 MEM.RegWrite: 1
-WB.nop: False
-WB.ALUoutput: 00000000000000000000000000000000
+WB.nop: True
+WB.ALUoutput: 0
 WB.Write_data: 0
-WB.Rs1: 3
-WB.Rs2: 5
-WB.Rd: 8
+WB.Rs1: 0
+WB.Rs2: 0
+WB.Rd: 0
 WB.RegWrite: 0
 WB.MemtoReg: 0
 ------------------------------------------------------------
-State after executing cycle: 27
+State after executing cycle: 26
 IF.nop: False
 IF.PC: 40
 IF.PCSrc: 0
-IF.PCWrite: True
+IF.PCWrite: 1
 IF.Flush: 0
 ID.nop: False
 ID.PC: 36
 ID.Instr: 00000000101000000010101000100011
 ID.Rs1: 0
-ID.Rs2: 10
-ID.Rd: 20
+ID.Rs2: 0
+ID.Rd: 0
 EX.nop: False
 EX.Ins: SW
 EX.Read_data1: 00000000000000000000000000000000
@@ -1399,7 +1348,7 @@ EX.Rd: 16
 EX.funct7: 0000000
 EX.funct3: 010
 EX.opcode: 0100011
-EX.ALUoutput: 00000000000000000000000000010000
+EX.ALUoutput: 0
 EX.Branch: 0
 EX.MemRead: 0
 EX.MemtoReg: 0
@@ -1427,18 +1376,18 @@ WB.Rd: 10
 WB.RegWrite: 1
 WB.MemtoReg: 0
 ------------------------------------------------------------
-State after executing cycle: 28
+State after executing cycle: 27
 IF.nop: False
 IF.PC: 44
-IF.PCSrc: True
-IF.PCWrite: True
+IF.PCSrc: 0
+IF.PCWrite: 1
 IF.Flush: 0
 ID.nop: False
 ID.PC: 40
 ID.Instr: 11111110000000000000100011100011
 ID.Rs1: 0
 ID.Rs2: 0
-ID.Rd: 17
+ID.Rd: 0
 EX.nop: False
 EX.Ins: SW
 EX.Read_data1: 00000000000000000000000000000000
@@ -1450,7 +1399,7 @@ EX.Rd: 20
 EX.funct7: 0000000
 EX.funct3: 010
 EX.opcode: 0100011
-EX.ALUoutput: 00000000000000000000000000010100
+EX.ALUoutput: 0
 EX.Branch: 0
 EX.MemRead: 0
 EX.MemtoReg: 0
@@ -1478,7 +1427,7 @@ WB.Rd: 0
 WB.RegWrite: 0
 WB.MemtoReg: 0
 ------------------------------------------------------------
-State after executing cycle: 29
+State after executing cycle: 28
 IF.nop: False
 IF.PC: 24
 IF.PCSrc: 0
@@ -1490,22 +1439,22 @@ ID.Instr: 00000000000000000000000000000000
 ID.Rs1: 0
 ID.Rs2: 0
 ID.Rd: 0
-EX.nop: False
-EX.Ins: BEQ
-EX.Read_data1: 00000000000000000000000000000000
-EX.Read_data2: 00000000000000000000000000000000
-EX.Imm: 11111111111111111111111111110000
+EX.nop: True
+EX.Ins: 
+EX.Read_data1: 0
+EX.Read_data2: 0
+EX.Imm: 0
 EX.Rs1: 0
 EX.Rs2: 0
-EX.Rd: 17
-EX.funct7: 1111111
-EX.funct3: 000
-EX.opcode: 1100011
-EX.ALUoutput: 00000000000000000000000000000000
-EX.Branch: 1
+EX.Rd: 0
+EX.funct7: 
+EX.funct3: 
+EX.opcode: 
+EX.ALUoutput: 0
+EX.Branch: 0
 EX.MemRead: 0
 EX.MemtoReg: 0
-EX.ALUOp: 1
+EX.ALUOp: 0
 EX.MemWrite: 0
 EX.ALUSrc: 0
 EX.RegWrite: 0
@@ -1529,18 +1478,18 @@ WB.Rd: 16
 WB.RegWrite: 0
 WB.MemtoReg: 0
 ------------------------------------------------------------
-State after executing cycle: 30
+State after executing cycle: 29
 IF.nop: False
 IF.PC: 28
-IF.PCSrc: True
-IF.PCWrite: True
+IF.PCSrc: 0
+IF.PCWrite: 1
 IF.Flush: 0
 ID.nop: False
 ID.PC: 24
 ID.Instr: 11111110010000010001100011100011
-ID.Rs1: 2
-ID.Rs2: 4
-ID.Rd: 17
+ID.Rs1: 0
+ID.Rs2: 0
+ID.Rd: 0
 EX.nop: True
 EX.Ins: 
 EX.Read_data1: 0
@@ -1557,57 +1506,6 @@ EX.Branch: 0
 EX.MemRead: 0
 EX.MemtoReg: 0
 EX.ALUOp: 0
-EX.MemWrite: 0
-EX.ALUSrc: 0
-EX.RegWrite: 0
-MEM.nop: False
-MEM.ALUoutput: 00000000000000000000000000000000
-MEM.Read_data2: 00000000000000000000000000000000
-MEM.Load_data: 0
-MEM.Rs1: 0
-MEM.Rs2: 0
-MEM.Rd: 17
-MEM.MemtoReg: 0
-MEM.MemRead: 0
-MEM.MemWrite: 0
-MEM.RegWrite: 0
-WB.nop: False
-WB.ALUoutput: 00000000000000000000000000010100
-WB.Write_data: 0
-WB.Rs1: 0
-WB.Rs2: 10
-WB.Rd: 20
-WB.RegWrite: 0
-WB.MemtoReg: 0
-------------------------------------------------------------
-State after executing cycle: 31
-IF.nop: False
-IF.PC: 8
-IF.PCSrc: 0
-IF.PCWrite: 1
-IF.Flush: 1
-ID.nop: False
-ID.PC: 28
-ID.Instr: 11111111111111111111111111111111
-ID.Rs1: 0
-ID.Rs2: 0
-ID.Rd: 0
-EX.nop: False
-EX.Ins: BNE
-EX.Read_data1: 00000000000000000000000000000101
-EX.Read_data2: 00000000000000000000000000000100
-EX.Imm: 11111111111111111111111111110000
-EX.Rs1: 2
-EX.Rs2: 4
-EX.Rd: 17
-EX.funct7: 1111111
-EX.funct3: 001
-EX.opcode: 1100011
-EX.ALUoutput: 00000000000000000000000000000001
-EX.Branch: 1
-EX.MemRead: 0
-EX.MemtoReg: 0
-EX.ALUOp: 1
 EX.MemWrite: 0
 EX.ALUSrc: 0
 EX.RegWrite: 0
@@ -1623,26 +1521,26 @@ MEM.MemRead: 0
 MEM.MemWrite: 0
 MEM.RegWrite: 0
 WB.nop: False
-WB.ALUoutput: 00000000000000000000000000000000
+WB.ALUoutput: 00000000000000000000000000010100
 WB.Write_data: 0
 WB.Rs1: 0
-WB.Rs2: 0
-WB.Rd: 17
+WB.Rs2: 10
+WB.Rd: 20
 WB.RegWrite: 0
 WB.MemtoReg: 0
 ------------------------------------------------------------
-State after executing cycle: 32
+State after executing cycle: 30
 IF.nop: False
-IF.PC: 12
+IF.PC: 8
 IF.PCSrc: 0
-IF.PCWrite: True
-IF.Flush: 0
+IF.PCWrite: 1
+IF.Flush: 1
 ID.nop: False
-ID.PC: 8
-ID.Instr: 00000000000100100000001000010011
-ID.Rs1: 4
-ID.Rs2: 1
-ID.Rd: 4
+ID.PC: 28
+ID.Instr: 11111111111111111111111111111111
+ID.Rs1: 0
+ID.Rs2: 0
+ID.Rd: 0
 EX.nop: True
 EX.Ins: 
 EX.Read_data1: 0
@@ -1662,13 +1560,13 @@ EX.ALUOp: 0
 EX.MemWrite: 0
 EX.ALUSrc: 0
 EX.RegWrite: 0
-MEM.nop: False
-MEM.ALUoutput: 00000000000000000000000000000001
-MEM.Read_data2: 00000000000000000000000000000100
+MEM.nop: True
+MEM.ALUoutput: 0
+MEM.Read_data2: 0
 MEM.Load_data: 0
-MEM.Rs1: 2
-MEM.Rs2: 4
-MEM.Rd: 17
+MEM.Rs1: 0
+MEM.Rs2: 0
+MEM.Rd: 0
 MEM.MemtoReg: 0
 MEM.MemRead: 0
 MEM.MemWrite: 0
@@ -1682,18 +1580,69 @@ WB.Rd: 0
 WB.RegWrite: 0
 WB.MemtoReg: 0
 ------------------------------------------------------------
-State after executing cycle: 33
+State after executing cycle: 31
+IF.nop: False
+IF.PC: 12
+IF.PCSrc: 0
+IF.PCWrite: 1
+IF.Flush: 0
+ID.nop: False
+ID.PC: 8
+ID.Instr: 00000000000100100000001000010011
+ID.Rs1: 0
+ID.Rs2: 0
+ID.Rd: 0
+EX.nop: True
+EX.Ins: 
+EX.Read_data1: 0
+EX.Read_data2: 0
+EX.Imm: 0
+EX.Rs1: 0
+EX.Rs2: 0
+EX.Rd: 0
+EX.funct7: 
+EX.funct3: 
+EX.opcode: 
+EX.ALUoutput: 0
+EX.Branch: 0
+EX.MemRead: 0
+EX.MemtoReg: 0
+EX.ALUOp: 0
+EX.MemWrite: 0
+EX.ALUSrc: 0
+EX.RegWrite: 0
+MEM.nop: True
+MEM.ALUoutput: 0
+MEM.Read_data2: 0
+MEM.Load_data: 0
+MEM.Rs1: 0
+MEM.Rs2: 0
+MEM.Rd: 0
+MEM.MemtoReg: 0
+MEM.MemRead: 0
+MEM.MemWrite: 0
+MEM.RegWrite: 0
+WB.nop: True
+WB.ALUoutput: 0
+WB.Write_data: 0
+WB.Rs1: 0
+WB.Rs2: 0
+WB.Rd: 0
+WB.RegWrite: 0
+WB.MemtoReg: 0
+------------------------------------------------------------
+State after executing cycle: 32
 IF.nop: False
 IF.PC: 16
 IF.PCSrc: 0
-IF.PCWrite: True
+IF.PCWrite: 1
 IF.Flush: 0
 ID.nop: False
 ID.PC: 12
 ID.Instr: 00000000010100100000001010110011
-ID.Rs1: 4
-ID.Rs2: 5
-ID.Rd: 5
+ID.Rs1: 0
+ID.Rs2: 0
+ID.Rd: 0
 EX.nop: False
 EX.Ins: ADDI
 EX.Read_data1: 00000000000000000000000000000100
@@ -1705,7 +1654,7 @@ EX.Rd: 4
 EX.funct7: 0000000
 EX.funct3: 000
 EX.opcode: 0010011
-EX.ALUoutput: 00000000000000000000000000000101
+EX.ALUoutput: 0
 EX.Branch: 0
 EX.MemRead: 0
 EX.MemtoReg: 0
@@ -1724,27 +1673,27 @@ MEM.MemtoReg: 0
 MEM.MemRead: 0
 MEM.MemWrite: 0
 MEM.RegWrite: 0
-WB.nop: False
-WB.ALUoutput: 00000000000000000000000000000001
+WB.nop: True
+WB.ALUoutput: 0
 WB.Write_data: 0
-WB.Rs1: 2
-WB.Rs2: 4
-WB.Rd: 17
+WB.Rs1: 0
+WB.Rs2: 0
+WB.Rd: 0
 WB.RegWrite: 0
 WB.MemtoReg: 0
 ------------------------------------------------------------
-State after executing cycle: 34
+State after executing cycle: 33
 IF.nop: False
 IF.PC: 20
-IF.PCSrc: True
-IF.PCWrite: True
+IF.PCSrc: 0
+IF.PCWrite: 1
 IF.Flush: 0
 ID.nop: False
 ID.PC: 16
 ID.Instr: 00000000010100011001010001100011
-ID.Rs1: 3
-ID.Rs2: 5
-ID.Rd: 8
+ID.Rs1: 0
+ID.Rs2: 0
+ID.Rd: 0
 EX.nop: False
 EX.Ins: ADD
 EX.Read_data1: 00000000000000000000000000000100
@@ -1756,7 +1705,7 @@ EX.Rd: 5
 EX.funct7: 0000000
 EX.funct3: 000
 EX.opcode: 0110011
-EX.ALUoutput: 00000000000000000000000000001111
+EX.ALUoutput: 0
 EX.Branch: 0
 EX.MemRead: 0
 EX.MemtoReg: 0
@@ -1784,7 +1733,7 @@ WB.Rd: 0
 WB.RegWrite: 0
 WB.MemtoReg: 0
 ------------------------------------------------------------
-State after executing cycle: 35
+State after executing cycle: 34
 IF.nop: False
 IF.PC: 24
 IF.PCSrc: 0
@@ -1796,22 +1745,22 @@ ID.Instr: 00000000110000000000010101101111
 ID.Rs1: 0
 ID.Rs2: 0
 ID.Rd: 0
-EX.nop: False
-EX.Ins: BNE
-EX.Read_data1: 00000000000000000000000000001010
-EX.Read_data2: 00000000000000000000000000001010
-EX.Imm: 00000000000000000000000000001000
-EX.Rs1: 3
-EX.Rs2: 5
-EX.Rd: 8
-EX.funct7: 0000000
-EX.funct3: 001
-EX.opcode: 1100011
-EX.ALUoutput: 11111111111111111111111111111011
-EX.Branch: 1
+EX.nop: True
+EX.Ins: 
+EX.Read_data1: 0
+EX.Read_data2: 0
+EX.Imm: 0
+EX.Rs1: 0
+EX.Rs2: 0
+EX.Rd: 0
+EX.funct7: 
+EX.funct3: 
+EX.opcode: 
+EX.ALUoutput: 0
+EX.Branch: 0
 EX.MemRead: 0
 EX.MemtoReg: 0
-EX.ALUOp: 1
+EX.ALUOp: 0
 EX.MemWrite: 0
 EX.ALUSrc: 0
 EX.RegWrite: 0
@@ -1835,18 +1784,18 @@ WB.Rd: 4
 WB.RegWrite: 1
 WB.MemtoReg: 0
 ------------------------------------------------------------
-State after executing cycle: 36
+State after executing cycle: 35
 IF.nop: False
 IF.PC: 28
-IF.PCSrc: False
-IF.PCWrite: True
+IF.PCSrc: 0
+IF.PCWrite: 1
 IF.Flush: 0
 ID.nop: False
 ID.PC: 24
 ID.Instr: 11111110010000010001100011100011
-ID.Rs1: 2
-ID.Rs2: 4
-ID.Rd: 17
+ID.Rs1: 0
+ID.Rs2: 0
+ID.Rd: 0
 EX.nop: True
 EX.Ins: 
 EX.Read_data1: 0
@@ -1866,13 +1815,13 @@ EX.ALUOp: 0
 EX.MemWrite: 0
 EX.ALUSrc: 0
 EX.RegWrite: 0
-MEM.nop: False
-MEM.ALUoutput: 11111111111111111111111111111011
-MEM.Read_data2: 00000000000000000000000000001111
+MEM.nop: True
+MEM.ALUoutput: 0
+MEM.Read_data2: 0
 MEM.Load_data: 0
-MEM.Rs1: 3
-MEM.Rs2: 5
-MEM.Rd: 8
+MEM.Rs1: 0
+MEM.Rs2: 0
+MEM.Rd: 0
 MEM.MemtoReg: 0
 MEM.MemRead: 0
 MEM.MemWrite: 0
@@ -1886,66 +1835,15 @@ WB.Rd: 5
 WB.RegWrite: 1
 WB.MemtoReg: 0
 ------------------------------------------------------------
-State after executing cycle: 37
+State after executing cycle: 36
 IF.nop: False
 IF.PC: 32
 IF.PCSrc: 0
-IF.PCWrite: True
+IF.PCWrite: 1
 IF.Flush: 0
 ID.nop: False
 ID.PC: 28
 ID.Instr: 11111111111111111111111111111111
-ID.Rs1: 31
-ID.Rs2: 31
-ID.Rd: 31
-EX.nop: False
-EX.Ins: BNE
-EX.Read_data1: 00000000000000000000000000000101
-EX.Read_data2: 00000000000000000000000000000101
-EX.Imm: 11111111111111111111111111110000
-EX.Rs1: 2
-EX.Rs2: 4
-EX.Rd: 17
-EX.funct7: 1111111
-EX.funct3: 001
-EX.opcode: 1100011
-EX.ALUoutput: 00000000000000000000000000000000
-EX.Branch: 1
-EX.MemRead: 0
-EX.MemtoReg: 0
-EX.ALUOp: 1
-EX.MemWrite: 0
-EX.ALUSrc: 0
-EX.RegWrite: 0
-MEM.nop: True
-MEM.ALUoutput: 0
-MEM.Read_data2: 0
-MEM.Load_data: 0
-MEM.Rs1: 0
-MEM.Rs2: 0
-MEM.Rd: 0
-MEM.MemtoReg: 0
-MEM.MemRead: 0
-MEM.MemWrite: 0
-MEM.RegWrite: 0
-WB.nop: False
-WB.ALUoutput: 11111111111111111111111111111011
-WB.Write_data: 0
-WB.Rs1: 3
-WB.Rs2: 5
-WB.Rd: 8
-WB.RegWrite: 0
-WB.MemtoReg: 0
-------------------------------------------------------------
-State after executing cycle: 38
-IF.nop: True
-IF.PC: 36
-IF.PCSrc: 0
-IF.PCWrite: 1
-IF.Flush: 0
-ID.nop: True
-ID.PC: 32
-ID.Instr: 00000000010000000010100000100011
 ID.Rs1: 0
 ID.Rs2: 0
 ID.Rd: 0
@@ -1968,13 +1866,13 @@ EX.ALUOp: 0
 EX.MemWrite: 0
 EX.ALUSrc: 0
 EX.RegWrite: 0
-MEM.nop: False
-MEM.ALUoutput: 00000000000000000000000000000000
-MEM.Read_data2: 00000000000000000000000000000101
+MEM.nop: True
+MEM.ALUoutput: 0
+MEM.Read_data2: 0
 MEM.Load_data: 0
-MEM.Rs1: 2
-MEM.Rs2: 4
-MEM.Rd: 17
+MEM.Rs1: 0
+MEM.Rs2: 0
+MEM.Rd: 0
 MEM.MemtoReg: 0
 MEM.MemRead: 0
 MEM.MemWrite: 0
@@ -1988,66 +1886,15 @@ WB.Rd: 0
 WB.RegWrite: 0
 WB.MemtoReg: 0
 ------------------------------------------------------------
-State after executing cycle: 39
+State after executing cycle: 37
 IF.nop: True
-IF.PC: 0
+IF.PC: 36
 IF.PCSrc: 0
 IF.PCWrite: 1
 IF.Flush: 0
 ID.nop: True
-ID.PC: 0
-ID.Instr: 0
-ID.Rs1: 0
-ID.Rs2: 0
-ID.Rd: 0
-EX.nop: True
-EX.Ins: 
-EX.Read_data1: 0
-EX.Read_data2: 0
-EX.Imm: 0
-EX.Rs1: 0
-EX.Rs2: 0
-EX.Rd: 0
-EX.funct7: 
-EX.funct3: 
-EX.opcode: 
-EX.ALUoutput: 0
-EX.Branch: 0
-EX.MemRead: 0
-EX.MemtoReg: 0
-EX.ALUOp: 0
-EX.MemWrite: 0
-EX.ALUSrc: 0
-EX.RegWrite: 0
-MEM.nop: True
-MEM.ALUoutput: 0
-MEM.Read_data2: 0
-MEM.Load_data: 0
-MEM.Rs1: 0
-MEM.Rs2: 0
-MEM.Rd: 0
-MEM.MemtoReg: 0
-MEM.MemRead: 0
-MEM.MemWrite: 0
-MEM.RegWrite: 0
-WB.nop: False
-WB.ALUoutput: 00000000000000000000000000000000
-WB.Write_data: 0
-WB.Rs1: 2
-WB.Rs2: 4
-WB.Rd: 17
-WB.RegWrite: 0
-WB.MemtoReg: 0
-------------------------------------------------------------
-State after executing cycle: 40
-IF.nop: True
-IF.PC: 0
-IF.PCSrc: 0
-IF.PCWrite: 1
-IF.Flush: 0
-ID.nop: True
-ID.PC: 0
-ID.Instr: 0
+ID.PC: 32
+ID.Instr: 00000000010000000010100000100011
 ID.Rs1: 0
 ID.Rs2: 0
 ID.Rd: 0

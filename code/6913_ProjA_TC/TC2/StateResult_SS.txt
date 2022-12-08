@@ -4,7 +4,7 @@ IF.nop: False
 IF.PC: 4
 IF.PCSrc: 0
 IF.PCWrite: 1
-IF.Flush: False
+IF.Flush: 0
 
 ID.nop: False
 ID.PC: 0
@@ -24,6 +24,7 @@ EX.Rd: 1
 EX.funct7: 
 EX.funct3: 
 EX.opcode: 
+EX.ALUoutput: 0
 EX.Branch: 0
 EX.MemRead: 1
 EX.MemtoReg: 1
@@ -59,7 +60,7 @@ IF.nop: False
 IF.PC: 8
 IF.PCSrc: 0
 IF.PCWrite: 1
-IF.Flush: False
+IF.Flush: 0
 
 ID.nop: False
 ID.PC: 0
@@ -79,6 +80,7 @@ EX.Rd: 2
 EX.funct7: 
 EX.funct3: 
 EX.opcode: 
+EX.ALUoutput: 0
 EX.Branch: 0
 EX.MemRead: 0
 EX.MemtoReg: 0
@@ -114,7 +116,7 @@ IF.nop: False
 IF.PC: 4
 IF.PCSrc: 0
 IF.PCWrite: 1
-IF.Flush: False
+IF.Flush: 0
 
 ID.nop: False
 ID.PC: 0
@@ -134,6 +136,7 @@ EX.Rd: 29
 EX.funct7: 
 EX.funct3: 
 EX.opcode: 
+EX.ALUoutput: 0
 EX.Branch: 1
 EX.MemRead: 0
 EX.MemtoReg: 0
@@ -169,7 +172,7 @@ IF.nop: False
 IF.PC: 8
 IF.PCSrc: 0
 IF.PCWrite: 1
-IF.Flush: False
+IF.Flush: 0
 
 ID.nop: False
 ID.PC: 0
@@ -189,6 +192,7 @@ EX.Rd: 2
 EX.funct7: 
 EX.funct3: 
 EX.opcode: 
+EX.ALUoutput: 0
 EX.Branch: 0
 EX.MemRead: 0
 EX.MemtoReg: 0
@@ -224,7 +228,7 @@ IF.nop: False
 IF.PC: 12
 IF.PCSrc: 0
 IF.PCWrite: 1
-IF.Flush: False
+IF.Flush: 0
 
 ID.nop: False
 ID.PC: 0
@@ -244,6 +248,7 @@ EX.Rd: 29
 EX.funct7: 
 EX.funct3: 
 EX.opcode: 
+EX.ALUoutput: 0
 EX.Branch: 1
 EX.MemRead: 0
 EX.MemtoReg: 0
@@ -279,7 +284,7 @@ IF.nop: True
 IF.PC: 16
 IF.PCSrc: 0
 IF.PCWrite: 1
-IF.Flush: False
+IF.Flush: 0
 
 ID.nop: True
 ID.PC: 0
@@ -299,6 +304,7 @@ EX.Rd: 31
 EX.funct7: 
 EX.funct3: 
 EX.opcode: 
+EX.ALUoutput: 0
 EX.Branch: 0
 EX.MemRead: 0
 EX.MemtoReg: 0
