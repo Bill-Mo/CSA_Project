@@ -3,6 +3,7 @@ State after executing cycle: 0
 IF.nop: False
 IF.PC: 4
 IF.PCSrc: 0
+IF.PCWrite: 1
 IF.Flush: False
 
 ID.nop: False
@@ -46,18 +47,18 @@ MEM.Store_data: 0
 
 WB.nop: False
 WB.ALUoutput: 0
-WB.Load_data: 0
+WB.Write_data: 01010101010101010101010101010101
 WB.Rs1: 0
 WB.Rs2: 0
 WB.Rd: 1
 WB.RegWrite: 1
 WB.MemtoReg: 0
-WB.Write_data: 01010101010101010101010101010101
 --------------------------------------------------
 State after executing cycle: 1
 IF.nop: False
 IF.PC: 8
 IF.PCSrc: 0
+IF.PCWrite: 1
 IF.Flush: False
 
 ID.nop: False
@@ -101,18 +102,18 @@ MEM.Store_data: 4
 
 WB.nop: False
 WB.ALUoutput: 0
-WB.Load_data: 0
+WB.Write_data: 00110011001100110011001100110011
 WB.Rs1: 0
 WB.Rs2: 4
 WB.Rd: 2
 WB.RegWrite: 1
 WB.MemtoReg: 0
-WB.Write_data: 00110011001100110011001100110011
 --------------------------------------------------
 State after executing cycle: 2
 IF.nop: False
 IF.PC: 12
 IF.PCSrc: 0
+IF.PCWrite: 1
 IF.Flush: False
 
 ID.nop: False
@@ -156,18 +157,18 @@ MEM.Store_data: 2
 
 WB.nop: False
 WB.ALUoutput: 0
-WB.Load_data: 0
+WB.Write_data: 10001000100010001000100010001000
 WB.Rs1: 1
 WB.Rs2: 2
 WB.Rd: 3
 WB.RegWrite: 1
 WB.MemtoReg: 0
-WB.Write_data: 10001000100010001000100010001000
 --------------------------------------------------
 State after executing cycle: 3
 IF.nop: False
 IF.PC: 16
 IF.PCSrc: 0
+IF.PCWrite: 1
 IF.Flush: False
 
 ID.nop: False
@@ -211,18 +212,18 @@ MEM.Store_data: 3
 
 WB.nop: False
 WB.ALUoutput: 0
-WB.Load_data: 0
+WB.Write_data: 00000000000000000000000000001000
 WB.Rs1: 0
 WB.Rs2: 3
 WB.Rd: 8
 WB.RegWrite: 0
 WB.MemtoReg: 0
-WB.Write_data: 00000000000000000000000000001000
 --------------------------------------------------
 State after executing cycle: 4
 IF.nop: True
 IF.PC: 20
 IF.PCSrc: 0
+IF.PCWrite: 1
 IF.Flush: False
 
 ID.nop: True
@@ -266,10 +267,9 @@ MEM.Store_data: 31
 
 WB.nop: True
 WB.ALUoutput: 0
-WB.Load_data: 0
+WB.Write_data: 00000000000000000000000000000000
 WB.Rs1: 31
 WB.Rs2: 31
 WB.Rd: 31
 WB.RegWrite: 0
 WB.MemtoReg: 0
-WB.Write_data: 00000000000000000000000000000000
