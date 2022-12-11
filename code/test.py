@@ -1,5 +1,9 @@
 from helper import *
-print('a' == 'b')
+import numpy as np
+a = np.linspace(29, 40, 9)
+b = np.linspace(32, 37, 9)
+
+print(np.sum(a), np.sum(b))
 
 '''
         0   1   2   3   4   5   6   7   8	9
