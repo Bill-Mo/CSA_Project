@@ -45,15 +45,6 @@ MEM.MemRead: 1
 MEM.MemWrite: 0
 MEM.RegWrite: 1
 MEM.Store_data: 0
-<<<<<<< HEAD
-MEM.Rs: 0
-MEM.Rt: 0
-MEM.Wrt_reg_addr: 1
-MEM.rd_mem: 1
-MEM.wrt_mem: 0
-MEM.wrt_enable: 0
-=======
->>>>>>> Bill
 
 WB.nop: False
 WB.ALUoutput: 0
@@ -99,16 +90,6 @@ EX.ALUSrc: 1
 EX.RegWrite: 1
 
 MEM.nop: False
-<<<<<<< HEAD
-MEM.ALUresult: 00000000000000000000000000000100
-MEM.Store_data: 4
-MEM.Rs: 2
-MEM.Rt: 4
-MEM.Wrt_reg_addr: 0
-MEM.rd_mem: 0
-MEM.wrt_mem: 0
-MEM.wrt_enable: 0
-=======
 MEM.ALUoutput: 00000000000000000000000000000100
 MEM.Read_data2: 0
 MEM.Load_data: 0
@@ -120,7 +101,6 @@ MEM.MemRead: 0
 MEM.MemWrite: 0
 MEM.RegWrite: 1
 MEM.Store_data: 4
->>>>>>> Bill
 
 WB.nop: False
 WB.ALUoutput: 0
@@ -149,34 +129,6 @@ EX.nop: False
 EX.Ins: 
 EX.Read_data1: 00000000000000000000000000000100
 EX.Read_data2: 00000000000000000000000000001000
-<<<<<<< HEAD
-EX.Imm: -4
-EX.Rs: 2
-EX.Rt: 1
-EX.Wrt_reg_addr: 0
-EX.rd_mem: 0
-EX.wrt_mem: 0
-EX.alu_op: 1
-EX.wrt_enable: 0
-
-MEM.nop: False
-MEM.ALUresult: 00000000000000000000000000000001
-MEM.Store_data: 1
-MEM.Rs: 2
-MEM.Rt: 1
-MEM.Wrt_reg_addr: 0
-MEM.rd_mem: 0
-MEM.wrt_mem: 0
-MEM.wrt_enable: 0
-
-WB.nop: False
-WB.Wrt_data: 0
-WB.Rs: 2
-WB.Rt: 1
-WB.Wrt_reg_addr: 0
-WB.wrt_enable: 0
-WB.wrt_data: 00000000000000000000000000000001
-=======
 EX.Imm: 11111111111111111111111111111100
 EX.Rs1: 2
 EX.Rs2: 1
@@ -214,7 +166,6 @@ WB.Rs2: 1
 WB.Rd: 29
 WB.RegWrite: 0
 WB.MemtoReg: 0
->>>>>>> Bill
 --------------------------------------------------
 State after executing cycle: 3
 IF.nop: False
@@ -251,16 +202,6 @@ EX.ALUSrc: 1
 EX.RegWrite: 1
 
 MEM.nop: False
-<<<<<<< HEAD
-MEM.ALUresult: 00000000000000000000000000001000
-MEM.Store_data: 4
-MEM.Rs: 2
-MEM.Rt: 4
-MEM.Wrt_reg_addr: 0
-MEM.rd_mem: 0
-MEM.wrt_mem: 0
-MEM.wrt_enable: 0
-=======
 MEM.ALUoutput: 00000000000000000000000000001000
 MEM.Read_data2: 0
 MEM.Load_data: 0
@@ -272,7 +213,6 @@ MEM.MemRead: 0
 MEM.MemWrite: 0
 MEM.RegWrite: 1
 MEM.Store_data: 4
->>>>>>> Bill
 
 WB.nop: False
 WB.ALUoutput: 0
@@ -301,34 +241,6 @@ EX.nop: False
 EX.Ins: 
 EX.Read_data1: 00000000000000000000000000001000
 EX.Read_data2: 00000000000000000000000000001000
-<<<<<<< HEAD
-EX.Imm: -4
-EX.Rs: 2
-EX.Rt: 1
-EX.Wrt_reg_addr: 0
-EX.rd_mem: 0
-EX.wrt_mem: 0
-EX.alu_op: 1
-EX.wrt_enable: 0
-
-MEM.nop: False
-MEM.ALUresult: 00000000000000000000000000000000
-MEM.Store_data: 1
-MEM.Rs: 2
-MEM.Rt: 1
-MEM.Wrt_reg_addr: 0
-MEM.rd_mem: 0
-MEM.wrt_mem: 0
-MEM.wrt_enable: 0
-
-WB.nop: False
-WB.Wrt_data: 0
-WB.Rs: 2
-WB.Rt: 1
-WB.Wrt_reg_addr: 0
-WB.wrt_enable: 0
-WB.wrt_data: 00000000000000000000000000000000
-=======
 EX.Imm: 11111111111111111111111111111100
 EX.Rs1: 2
 EX.Rs2: 1
@@ -366,7 +278,6 @@ WB.Rs2: 1
 WB.Rd: 29
 WB.RegWrite: 0
 WB.MemtoReg: 0
->>>>>>> Bill
 --------------------------------------------------
 State after executing cycle: 5
 IF.nop: True
@@ -386,34 +297,6 @@ EX.nop: True
 EX.Ins: 
 EX.Read_data1: 00000000000000000000000000000000
 EX.Read_data2: 00000000000000000000000000000000
-<<<<<<< HEAD
-EX.Imm: 0
-EX.Rs: 31
-EX.Rt: 31
-EX.Wrt_reg_addr: 0
-EX.rd_mem: 0
-EX.wrt_mem: 0
-EX.alu_op: 0
-EX.wrt_enable: 0
-
-MEM.nop: True
-MEM.ALUresult: 00000000000000000000000000000000
-MEM.Store_data: 31
-MEM.Rs: 31
-MEM.Rt: 31
-MEM.Wrt_reg_addr: 0
-MEM.rd_mem: 0
-MEM.wrt_mem: 0
-MEM.wrt_enable: 0
-
-WB.nop: True
-WB.Wrt_data: 0
-WB.Rs: 31
-WB.Rt: 31
-WB.Wrt_reg_addr: 0
-WB.wrt_enable: 0
-WB.wrt_data: 00000000000000000000000000000000
-=======
 EX.Imm: 00000000000000000000000000000000
 EX.Rs1: 31
 EX.Rs2: 31
@@ -451,4 +334,3 @@ WB.Rs2: 31
 WB.Rd: 31
 WB.RegWrite: 0
 WB.MemtoReg: 0
->>>>>>> Bill

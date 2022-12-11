@@ -162,7 +162,7 @@ class SingleStageCore(Core):
         ALU_output_raw = ALU(ALU_con, ins, rs1_data_raw, input2_raw)
 
         # Branch
-        ALU_zero = 0
+        ALU_zero = ALU_output_raw
         if ins == 'BEQ': 
             ALU_zero = ALU_output_raw == '0' * 32
         elif ins == 'BNE': 
@@ -206,7 +206,7 @@ class SingleStageCore(Core):
         self.state.MEM['RegWrite'] = main_con.RegWrite
         
         # 5. Write the result into a register (if necessary).
-        if main_con.RegWrite: 
+        if main_con.RegWrite and rd != 0: 
             self.do_write_back(rd, wb_value)
 
         self.state.WB['Write_data'] = wb_value
@@ -313,7 +313,7 @@ class FiveStageCore(Core):
             self.nextState.IF['nop'] = True
             self.nextState.ID['nop'] = True
 
-        if self.nextState.IF["nop"] and self.nextState.ID["nop"] and self.nextState.EX["nop"] and self.nextState.MEM["nop"] and self.nextState.WB["nop"]:
+        if self.state.IF["nop"] and self.state.ID["nop"] and self.state.EX["nop"] and self.state.MEM["nop"] and self.state.WB["nop"]:
             self.halted = True
         
         self.myRF.outputRF(self.cycle) # dump RF
@@ -630,7 +630,7 @@ if __name__ == "__main__":
     parser.add_argument('--iodir', default="", type=str, help='Directory containing the input files.')
     args = parser.parse_args()
 
-    test_case = 4
+    test_case = 0
     test_path = '\\6913_ProjA_TC\\TC' + str(test_case)
     ioDir = os.path.abspath(args.iodir) + test_path
     print("IO Directory:", ioDir)
@@ -646,18 +646,26 @@ if __name__ == "__main__":
         if not ssCore.halted:
             ssCore.step()
         
-        # if not fsCore.halted:
-        #     fsCore.step()
+        if not fsCore.halted:
+            fsCore.step()
 
         if ssCore.halted and fsCore.halted:
             break
 
-        if ssCore.halted: 
-            break
+        # if ssCore.halted: 
+        #     break
 
-        if fsCore.halted: 
-            break
+        # if fsCore.halted: 
+        #     break
     
     # dump SS and FS data mem.
     dmem_ss.outputDataMem()
     dmem_fs.outputDataMem()
+    
+    insnum = ssCore.cycle
+    sscpi = ssCore.cycle / insnum
+    fscpi = fsCore.cycle / insnum
+    print('test case {}'.format(test_case))
+    print('{} instructions'.format(insnum))
+    print('Single stage cycle time: {} CPI: {:.2f} Instruction per cycle: {:.2f}'.format(ssCore.cycle, sscpi, 1 / sscpi))
+    print('Five stage cycle time: {} CPI: {:.2f} Instruction per cycle: {:.2f}'.format(fsCore.cycle, fscpi, 1 / fscpi))

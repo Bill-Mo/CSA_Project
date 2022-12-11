@@ -2293,3 +2293,54 @@ WB.Rs2: 0
 WB.Rd: 0
 WB.RegWrite: 0
 WB.MemtoReg: 0
+------------------------------------------------------------
+State after executing cycle: 45
+IF.nop: True
+IF.PC: 0
+IF.PCSrc: 0
+IF.PCWrite: 1
+IF.Flush: 0
+ID.nop: True
+ID.PC: 0
+ID.Instr: 0
+ID.Rs1: 0
+ID.Rs2: 0
+ID.Rd: 0
+EX.nop: True
+EX.Ins: 
+EX.Read_data1: 0
+EX.Read_data2: 0
+EX.Imm: 0
+EX.Rs1: 0
+EX.Rs2: 0
+EX.Rd: 0
+EX.funct7: 
+EX.funct3: 
+EX.opcode: 
+EX.ALUoutput: 0
+EX.Branch: 0
+EX.MemRead: 0
+EX.MemtoReg: 0
+EX.ALUOp: 0
+EX.MemWrite: 0
+EX.ALUSrc: 0
+EX.RegWrite: 0
+MEM.nop: True
+MEM.ALUoutput: 0
+MEM.Read_data2: 0
+MEM.Load_data: 0
+MEM.Rs1: 0
+MEM.Rs2: 0
+MEM.Rd: 0
+MEM.MemtoReg: 0
+MEM.MemRead: 0
+MEM.MemWrite: 0
+MEM.RegWrite: 0
+WB.nop: True
+WB.ALUoutput: 0
+WB.Write_data: 0
+WB.Rs1: 0
+WB.Rs2: 0
+WB.Rd: 0
+WB.RegWrite: 0
+WB.MemtoReg: 0

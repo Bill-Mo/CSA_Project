@@ -169,7 +169,7 @@ WB.MemtoReg: 0
 --------------------------------------------------
 State after executing cycle: 3
 IF.nop: False
-IF.PC: 16
+IF.PC: 4
 IF.PCSrc: 0
 IF.PCWrite: 1
 IF.Flush: 0
@@ -224,6 +224,118 @@ WB.RegWrite: 1
 WB.MemtoReg: 0
 --------------------------------------------------
 State after executing cycle: 4
+IF.nop: False
+IF.PC: 8
+IF.PCSrc: 0
+IF.PCWrite: 1
+IF.Flush: 0
+
+ID.nop: False
+ID.PC: 0
+ID.Instr: 00000000010000010000000100010011
+ID.Rs1: 0
+ID.Rs2: 0
+ID.Rd: 0
+
+EX.nop: False
+EX.Ins: 
+EX.Read_data1: 00000000000000000000000000000100
+EX.Read_data2: 00000000000000000000000000000000
+EX.Imm: 00000000000000000000000000000100
+EX.Rs1: 2
+EX.Rs2: 4
+EX.Rd: 2
+EX.funct7: 
+EX.funct3: 
+EX.opcode: 
+EX.ALUoutput: 0
+EX.Branch: 0
+EX.MemRead: 0
+EX.MemtoReg: 0
+EX.ALUOp: 2
+EX.MemWrite: 0
+EX.ALUSrc: 1
+EX.RegWrite: 1
+
+MEM.nop: False
+MEM.ALUoutput: 00000000000000000000000000001000
+MEM.Read_data2: 0
+MEM.Load_data: 0
+MEM.Rs1: 2
+MEM.Rs2: 4
+MEM.Rd: 2
+MEM.MemtoReg: 0
+MEM.MemRead: 0
+MEM.MemWrite: 0
+MEM.RegWrite: 1
+MEM.Store_data: 4
+
+WB.nop: False
+WB.ALUoutput: 0
+WB.Write_data: 00000000000000000000000000001000
+WB.Rs1: 2
+WB.Rs2: 4
+WB.Rd: 2
+WB.RegWrite: 1
+WB.MemtoReg: 0
+--------------------------------------------------
+State after executing cycle: 5
+IF.nop: False
+IF.PC: 16
+IF.PCSrc: 0
+IF.PCWrite: 1
+IF.Flush: 0
+
+ID.nop: False
+ID.PC: 0
+ID.Instr: 00000000000100010000010001100011
+ID.Rs1: 0
+ID.Rs2: 0
+ID.Rd: 0
+
+EX.nop: False
+EX.Ins: 
+EX.Read_data1: 00000000000000000000000000001000
+EX.Read_data2: 00000000000000000000000000001000
+EX.Imm: 00000000000000000000000000001000
+EX.Rs1: 2
+EX.Rs2: 1
+EX.Rd: 8
+EX.funct7: 
+EX.funct3: 
+EX.opcode: 
+EX.ALUoutput: 0
+EX.Branch: 1
+EX.MemRead: 0
+EX.MemtoReg: 0
+EX.ALUOp: 1
+EX.MemWrite: 0
+EX.ALUSrc: 0
+EX.RegWrite: 0
+
+MEM.nop: False
+MEM.ALUoutput: 00000000000000000000000000000000
+MEM.Read_data2: 0
+MEM.Load_data: 0
+MEM.Rs1: 2
+MEM.Rs2: 1
+MEM.Rd: 8
+MEM.MemtoReg: 0
+MEM.MemRead: 0
+MEM.MemWrite: 0
+MEM.RegWrite: 0
+MEM.Store_data: 1
+
+WB.nop: False
+WB.ALUoutput: 0
+WB.Write_data: 00000000000000000000000000000000
+WB.Rs1: 2
+WB.Rs2: 1
+WB.Rd: 8
+WB.RegWrite: 0
+WB.MemtoReg: 0
+--------------------------------------------------
+State after executing cycle: 6
 IF.nop: True
 IF.PC: 20
 IF.PCSrc: 0
